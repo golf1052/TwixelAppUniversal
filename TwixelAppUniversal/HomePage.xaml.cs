@@ -47,7 +47,18 @@ namespace TwixelApp
             streams = await AppConstants.twixel.RetrieveFeaturedStreams(0, 10);
             foreach (FeaturedStream stream in streams)
             {
-                qualities.Add(await HelperMethods.RetrieveHlsStream(stream.stream.channel.name));
+                Dictionary<AppConstants.StreamQuality, Uri> q = null;
+                try
+                {
+                    q = await HelperMethods.RetrieveHlsStream(stream.stream.channel.name);
+                }
+                catch (Exception ex)
+                {
+                }
+                if (q != null)
+                {
+                    qualities.Add(q);
+                }
             }
             streamPreviewImage.Source = new BitmapImage(streams[0].stream.previewList["large"]);
             playButton.IsEnabled = true;
@@ -132,6 +143,16 @@ namespace TwixelApp
                 {
                     nextButton.IsEnabled = false;
                 }
+            }
+        }
+
+        private void channelButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(channelTextBox.Text))
+            {
+                List<object> parameters = new List<object>();
+                parameters.Add(channelTextBox.Text);
+                Frame.Navigate(typeof(StreamPage), parameters);
             }
         }
     }

@@ -18,6 +18,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Image x:Name="streamPreviewImage" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <MediaElement x:Name="featuredStreamMediaElement"/>
@@ -25,6 +26,10 @@
                     <Button x:Name="prevButton" Content="Previous" Click="prevButton_Click" IsEnabled="False"/>
                     <Button x:Name="playButton" Content="Play" Click="playButton_Click" IsEnabled="False"/>
                     <Button x:Name="nextButton" Content="Next" Click="nextButton_Click" IsEnabled="False"/>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Top" Grid.Row="2" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBox x:Name="channelTextBox" TextWrapping="Wrap" Text="" PlaceholderText="Enter channel here"/>
+                    <Button x:Name="channelButton" Content="Go" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="channelButton_Click"/>
                 </StackPanel>
             </Grid>
             <GridView x:Name="gamesGridView" ItemTemplate="{StaticResource GameItemTemplate}" Loaded="gamesGridView_Loaded" Grid.Column="1" HorizontalAlignment="Center"/>

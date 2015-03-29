@@ -123,6 +123,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Secrets.cs" />
+    <Compile Include="StreamPage.xaml.cs">
+      <DependentUpon>StreamPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -155,6 +158,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="StreamPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Flurl, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
@@ -176,6 +183,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\TwixelChat\TwixelChat.Universal\TwixelChat.Universal\TwixelChat.Universal.csproj">
+      <Project>{bb86286c-c18e-49d6-ae77-d84268553ad3}</Project>
+      <Name>TwixelChat.Universal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TwixelChat\TwixelChat\TwixelChat\TwixelChat.csproj">
+      <Project>{2abb4a81-1738-4d5b-ac76-2993d0ce4421}</Project>
+      <Name>TwixelChat</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Twixel\Twixel\Twixel.csproj">
       <Project>{dfd0db77-dbc7-4b79-8747-f9caf6274dbe}</Project>
       <Name>Twixel</Name>

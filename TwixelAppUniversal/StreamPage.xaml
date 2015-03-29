@@ -1,0 +1,35 @@
+﻿<Page
+    x:Class="TwixelApp.StreamPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TwixelApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <MediaElement x:Name="streamElement" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Grid HorizontalAlignment="Left" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <ListView x:Name="chatView" HorizontalAlignment="Left" Width="300" d:LayoutOverrides="TopPosition, BottomPosition" Margin="0"/>
+            <Grid VerticalAlignment="Top" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="chatBox" TextWrapping="Wrap" Text="" d:LayoutOverrides="Height" PlaceholderText="enter chat here"/>
+                <Button x:Name="sendButton" VerticalAlignment="Stretch" d:LayoutOverrides="Height" Grid.Column="1">
+                    <SymbolIcon Symbol="Send"/>
+                </Button>
+            </Grid>
+        </Grid>
+
+    </Grid>
+</Page>
