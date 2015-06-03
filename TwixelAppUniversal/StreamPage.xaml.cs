@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TwixelAPI;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -10,70 +11,75 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using TwixelAPI;
-using TwixelChat;
-using TwixelChat.Universal;
-using Windows.UI.Core;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace TwixelApp
+namespace TwixelAppUniversal
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     public sealed partial class StreamPage : Page
     {
-        string channel;
-        ChatClient client;
+        Stream stream;
+        Dictionary<AppConstants.StreamQuality, Uri> qualities;
+        bool showBars;
 
         public StreamPage()
         {
             this.InitializeComponent();
-            client = new ChatClient();
-            client.MessageRecieved += Client_MessageRecieved;
+
+            showBars = true;
         }
 
-        private async void Client_MessageRecieved(object sender, MessageRecievedEventArgs e)
-        {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                chatView.Items.Add(e.Username + ": " + e.Message);
-            });
-        }
-
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             List<object> parameters = (List<object>)e.Parameter;
-            channel = (string)parameters[0];
-            Stream stream = null;
-            
-            await client.Connect("golf1052", Secrets.AccessToken);
-            try
+            stream = (Stream)parameters[0];
+            qualities = (Dictionary<AppConstants.StreamQuality, Uri>)parameters[1];
+            streamerImage.Fill = new ImageBrush() { ImageSource = new BitmapImage(stream.channel.logo) };
+            streamerNameTextBlock.Text = stream.channel.displayName;
+            streamDescriptionTextBlock.Text = stream.channel.status;
+            gameNameTextBlock.Text = stream.game;
+            if (stream.viewers.HasValue)
             {
-                await client.JoinChannel(channel);
+                streamViewersTextBlock.Text = stream.viewers.Value.ToString();
             }
-            catch (TimeoutException ex)
+            foreach (KeyValuePair<AppConstants.StreamQuality, Uri> quality in qualities)
             {
-                throw;
+                ComboBoxItem item = new ComboBoxItem();
+                item.Content = HelperMethods.GetStreamQualityString(quality.Key);
+                streamQualitiesComboBox.Items.Add(item);
             }
-            try
+            if (qualities.ContainsKey(AppConstants.StreamQuality.Mobile))
             {
-                stream = await AppConstants.twixel.RetrieveStream(channel);
+                streamElement.Source = qualities[AppConstants.StreamQuality.Mobile];
             }
-            catch (TwixelException ex)
+            else
             {
-                throw;
-            }
-            if (stream != null)
-            {
-                Dictionary<AppConstants.StreamQuality, Uri> qualities = await HelperMethods.RetrieveHlsStream(channel);
                 streamElement.Source = qualities[AppConstants.StreamQuality.Chunked];
-                streamElement.Play();
-                
             }
+            streamElement.Play();
+
             base.OnNavigatedTo(e);
+        }
+
+        private void streamElement_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (showBars)
+            {
+                topBar.Visibility = Visibility.Collapsed;
+                bottomBar.Visibility = Visibility.Collapsed;
+                showBars = false;
+            }
+            else
+            {
+                topBar.Visibility = Visibility.Visible;
+                bottomBar.Visibility = Visibility.Visible;
+                showBars = true;
+            }
         }
     }
 }

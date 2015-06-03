@@ -7,20 +7,20 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="01c73efe-7307-472a-8ab3-7af22f141012"
-    Publisher="CN=Sanders"
+    Name="080750c5-9e48-401a-89ef-1ca8a39122a7"
+    Publisher="CN=ntwat"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="01c73efe-7307-472a-8ab3-7af22f141012" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="080750c5-9e48-401a-89ef-1ca8a39122a7" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>TwixelAppUniversal</DisplayName>
-    <PublisherDisplayName>Sanders</PublisherDisplayName>
+    <PublisherDisplayName>golf1052</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
   <Dependencies>
-    <TargetPlatform Name="Windows.Universal" MinVersion="10.0.10030.0" MaxVersionTested="10.0.10030.0" />
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.10069.0" MaxVersionTested="10.0.10069.0" />
   </Dependencies>
 
   <Resources>
@@ -30,13 +30,12 @@
   <Applications>
     <Application Id="App"
       Executable="$targetnametoken$.exe"
-      EntryPoint="TwixelApp.App">
+      EntryPoint="TwixelAppUniversal.App">
       <uap:VisualElements
         DisplayName="TwixelAppUniversal"
         Square150x150Logo="Assets\Logo.png"
         Square44x44Logo="Assets\SmallLogo.png"
         Description="TwixelAppUniversal"
-        ForegroundText="light"
         BackgroundColor="#464646">
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>

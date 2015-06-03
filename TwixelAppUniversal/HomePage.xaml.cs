@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TwixelAPI;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -12,23 +13,18 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using TwixelAPI;
 using Windows.UI.Xaml.Media.Imaging;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using Windows.Media.Playback;
+using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace TwixelApp
+namespace TwixelAppUniversal
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     public sealed partial class HomePage : Page
     {
-        ObservableCollection<GameGridViewBinding> gamesCollection;
         List<FeaturedStream> streams;
         List<Dictionary<AppConstants.StreamQuality, Uri>> qualities;
         int selectedStreamIndex = 0;
@@ -36,17 +32,17 @@ namespace TwixelApp
         public HomePage()
         {
             this.InitializeComponent();
-
-            gamesCollection = new ObservableCollection<GameGridViewBinding>();
             streams = new List<FeaturedStream>();
             qualities = new List<Dictionary<AppConstants.StreamQuality, Uri>>();
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            streams = await AppConstants.twixel.RetrieveFeaturedStreams(0, 10);
+            streams = await AppConstants.Twixel.RetrieveFeaturedStreams(0, 10);
             foreach (FeaturedStream stream in streams)
             {
+                stream.CleanTextString();
+                stream.text = stream.text.Replace('\n', ' ').Trim();
                 Dictionary<AppConstants.StreamQuality, Uri> q = null;
                 try
                 {
@@ -54,26 +50,21 @@ namespace TwixelApp
                 }
                 catch (Exception ex)
                 {
+                    Debug.WriteLine(ex.Message);
                 }
                 if (q != null)
                 {
                     qualities.Add(q);
                 }
+                else
+                {
+                    qualities.Add(q);
+                }
             }
-            streamPreviewImage.Source = new BitmapImage(streams[0].stream.previewList["large"]);
+            SetUpFeaturedStream();
             playButton.IsEnabled = true;
             nextButton.IsEnabled = true;
-            Total<List<Game>> games = await AppConstants.twixel.RetrieveTopGames();
-            foreach (Game game in games.wrapped)
-            {
-                gamesCollection.Add(new GameGridViewBinding(game.name, game.box["large"]));
-            }
             base.OnNavigatedTo(e);
-        }
-
-        private void gamesGridView_Loaded(object sender, RoutedEventArgs e)
-        {
-            gamesGridView.ItemsSource = gamesCollection;
         }
 
         private void prevButton_Click(object sender, RoutedEventArgs e)
@@ -88,13 +79,23 @@ namespace TwixelApp
                     featuredStreamMediaElement.Source = null;
                 }
                 selectedStreamIndex--;
-                streamPreviewImage.Source = new BitmapImage(streams[selectedStreamIndex].stream.previewList["large"]);
+                SetUpFeaturedStream();
                 nextButton.IsEnabled = true;
                 if (selectedStreamIndex == 0)
                 {
                     prevButton.IsEnabled = false;
                 }
+                playPauseIcon.Symbol = Symbol.Play;
             }
+        }
+
+        private void streamButton_Click(object sender, RoutedEventArgs e)
+        {
+            streamPreviewImage.Source = null;
+            List<object> parameters = new List<object>();
+            parameters.Add(streams[selectedStreamIndex].stream);
+            parameters.Add(qualities[selectedStreamIndex]);
+            Frame.Navigate(typeof(StreamPage), parameters);
         }
 
         private void playButton_Click(object sender, RoutedEventArgs e)
@@ -103,11 +104,14 @@ namespace TwixelApp
                 featuredStreamMediaElement.CurrentState != MediaElementState.Stopped &&
                 featuredStreamMediaElement.CurrentState != MediaElementState.Closed)
             {
-                featuredStreamMediaElement.Pause();
+                featuredStreamMediaElement.Stop();
+                playPauseIcon.Symbol = Symbol.Play;
             }
-            else if (featuredStreamMediaElement.CurrentState == MediaElementState.Paused)
+            else if (featuredStreamMediaElement.CurrentState == MediaElementState.Paused ||
+                featuredStreamMediaElement.CurrentState == MediaElementState.Stopped)
             {
                 featuredStreamMediaElement.Play();
+                playPauseIcon.Symbol = Symbol.Stop;
             }
             else
             {
@@ -122,6 +126,7 @@ namespace TwixelApp
                     featuredStreamMediaElement.Source = selectedQuality[AppConstants.StreamQuality.Chunked];
                 }
                 featuredStreamMediaElement.Play();
+                playPauseIcon.Symbol = Symbol.Stop;
             }
         }
 
@@ -137,22 +142,31 @@ namespace TwixelApp
                     featuredStreamMediaElement.Source = null;
                 }
                 selectedStreamIndex++;
-                streamPreviewImage.Source = new BitmapImage(streams[selectedStreamIndex].stream.previewList["large"]);
+                SetUpFeaturedStream();
                 prevButton.IsEnabled = true;
                 if (selectedStreamIndex == streams.Count - 1)
                 {
                     nextButton.IsEnabled = false;
                 }
+                playPauseIcon.Symbol = Symbol.Play;
             }
         }
 
-        private void channelButton_Click(object sender, RoutedEventArgs e)
+        private void SetUpFeaturedStream()
         {
-            if (!string.IsNullOrEmpty(channelTextBox.Text))
+            streamButton.IsEnabled = true;
+            playButton.IsEnabled = true;
+            streamOfflineTextBlock.Visibility = Visibility.Collapsed;
+            streamPreviewImage.Source = new BitmapImage(streams[selectedStreamIndex].stream.previewList["large"]);
+            featuredStreamerImage.Fill = new ImageBrush() { ImageSource = new BitmapImage(streams[selectedStreamIndex].stream.channel.logo) };
+            featuredGameTitle.Text = streams[selectedStreamIndex].title;
+            featuredGameDescription.Text = streams[selectedStreamIndex].text;
+            if (qualities[selectedStreamIndex] == null)
             {
-                List<object> parameters = new List<object>();
-                parameters.Add(channelTextBox.Text);
-                Frame.Navigate(typeof(StreamPage), parameters);
+                streamButton.IsEnabled = false;
+                playButton.IsEnabled = false;
+                streamPreviewImage.Source = null;
+                streamOfflineTextBlock.Visibility = Visibility.Visible;
             }
         }
     }

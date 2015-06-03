@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Net;
 using Flurl;
 using Newtonsoft.Json.Linq;
+using TwixelAPI;
 
-namespace TwixelApp
+namespace TwixelAppUniversal
 {
     public class HelperMethods
     {
@@ -92,6 +93,71 @@ namespace TwixelApp
                 }
             }
             return qualities;
+        }
+
+        public static AppConstants.StreamQuality GetStreamQuality(string streamQuality)
+        {
+            streamQuality = streamQuality.ToLower();
+            if (streamQuality == "source")
+            {
+                return AppConstants.StreamQuality.Source;
+            }
+            else if (streamQuality == "high")
+            {
+                return AppConstants.StreamQuality.High;
+            }
+            else if (streamQuality == "medium")
+            {
+                return AppConstants.StreamQuality.Medium;
+            }
+            else if (streamQuality == "low")
+            {
+                return AppConstants.StreamQuality.Low;
+            }
+            else if (streamQuality == "mobile")
+            {
+                return AppConstants.StreamQuality.Mobile;
+            }
+            else if (streamQuality == "chunked")
+            {
+                return AppConstants.StreamQuality.Chunked;
+            }
+            else
+            {
+                return AppConstants.StreamQuality.Chunked;
+            }
+        }
+
+        public static string GetStreamQualityString(AppConstants.StreamQuality streamQuality)
+        {
+            if (streamQuality == AppConstants.StreamQuality.Source)
+            {
+                return "Source";
+            }
+            else if (streamQuality == AppConstants.StreamQuality.High)
+            {
+                return "High";
+            }
+            else if (streamQuality == AppConstants.StreamQuality.Medium)
+            {
+                return "Medium";
+            }
+            else if (streamQuality == AppConstants.StreamQuality.Low)
+            {
+                return "Low";
+            }
+            else if (streamQuality == AppConstants.StreamQuality.Mobile)
+            {
+                return "Mobile";
+            }
+            else if (streamQuality == AppConstants.StreamQuality.Chunked)
+            {
+                return "Chunked";
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
     }
 }

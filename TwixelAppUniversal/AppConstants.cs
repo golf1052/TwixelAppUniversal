@@ -1,10 +1,15 @@
-﻿using TwixelAPI;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TwixelAPI;
 
-namespace TwixelApp
+namespace TwixelAppUniversal
 {
     public class AppConstants
     {
-        public static Twixel twixel;
+        public static Twixel Twixel;
 
         public enum StreamQuality
         {
