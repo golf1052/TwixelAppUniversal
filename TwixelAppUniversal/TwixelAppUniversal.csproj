@@ -95,6 +95,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="AppConstants.cs" />
+    <Compile Include="Binding Classes\ChatListViewBinding.cs" />
     <Compile Include="HelperMethods.cs" />
     <Compile Include="HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
@@ -175,11 +176,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\TwixelChat\TwixelChat.Universal\TwixelChat.Universal\TwixelChat.Universal.csproj">
+      <Project>{bb86286c-c18e-49d6-ae77-d84268553ad3}</Project>
+      <Name>TwixelChat.Universal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TwixelChat\TwixelChat\TwixelChat\TwixelChat.csproj">
+      <Project>{2abb4a81-1738-4d5b-ac76-2993d0ce4421}</Project>
+      <Name>TwixelChat</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Twixel\Twixel\Twixel.csproj">
       <Project>{dfd0db77-dbc7-4b79-8747-f9caf6274dbe}</Project>
       <Name>Twixel</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

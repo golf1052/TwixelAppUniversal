@@ -6,6 +6,14 @@
     RequestedTheme="Light">
     <Application.Resources>
         <SolidColorBrush x:Key="CornflowerBlue" Color="CornflowerBlue"/>
+        <DataTemplate x:Key="ChatListViewTemplate">
+            <Grid>
+                <StackPanel>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Username}" Foreground="{Binding Color}"/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Message}" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
     </Application.Resources>
 
 </Application>

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using TwixelAPI;
+using TwixelChat.Universal;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -13,6 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using TwixelChat;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -27,18 +30,37 @@ namespace TwixelAppUniversal
         Dictionary<AppConstants.StreamQuality, Uri> qualities;
         bool showBars;
 
+        ChatClient chatClient;
+
+        ObservableCollection<ChatListViewBinding> messages;
+
         public StreamPage()
         {
             this.InitializeComponent();
 
             showBars = true;
+            chatClient = new ChatClient();
+            chatClient.MessageRecieved += ChatClient_MessageRecieved;
+            messages = new ObservableCollection<ChatListViewBinding>();
+            chatListView.ItemsSource = messages;
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private async void ChatClient_MessageRecieved(object sender, MessageRecievedEventArgs e)
+        {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                messages.Add(new ChatListViewBinding(e.ChatMessage));
+            });
+        }
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             List<object> parameters = (List<object>)e.Parameter;
             stream = (Stream)parameters[0];
             qualities = (Dictionary<AppConstants.StreamQuality, Uri>)parameters[1];
+
+            await chatClient.Connect("golf1052", Secrets.AccessToken);
+            await chatClient.JoinChannel(stream.channel.name);
             streamerImage.Fill = new ImageBrush() { ImageSource = new BitmapImage(stream.channel.logo) };
             streamerNameTextBlock.Text = stream.channel.displayName;
             streamDescriptionTextBlock.Text = stream.channel.status;
