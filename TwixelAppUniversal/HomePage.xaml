@@ -45,6 +45,9 @@
                 <Button x:Name="nextButton" VerticalAlignment="Top" HorizontalAlignment="Stretch" d:LayoutOverrides="TopPosition, BottomPosition" Click="nextButton_Click">
                     <SymbolIcon Symbol="Next"/>
                 </Button>
+                <Button x:Name="settingsButton" Click="settingsButton_Click">
+                    <SymbolIcon Symbol="Setting"/>
+                </Button>
             </StackPanel>
         </Grid>
     </Grid>

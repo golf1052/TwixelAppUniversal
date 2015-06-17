@@ -26,6 +26,7 @@ namespace TwixelAppUniversal
     /// </summary>
     public sealed partial class StreamPage : Page
     {
+        bool doneLoading = false;
         Stream stream;
         Dictionary<AppConstants.StreamQuality, Uri> qualities;
         bool showBars;
@@ -75,17 +76,19 @@ namespace TwixelAppUniversal
                 item.Content = HelperMethods.GetStreamQualityString(quality.Key);
                 streamQualitiesComboBox.Items.Add(item);
             }
-            if (qualities.ContainsKey(AppConstants.StreamQuality.Mobile))
+            if (qualities.ContainsKey(AppConstants.WifiStreamQuality))
             {
-                streamElement.Source = qualities[AppConstants.StreamQuality.Mobile];
+                streamElement.Source = qualities[AppConstants.WifiStreamQuality];
+                SetQualityComboBox(AppConstants.WifiStreamQuality, streamQualitiesComboBox);
             }
             else
             {
                 streamElement.Source = qualities[AppConstants.StreamQuality.Chunked];
+                SetQualityComboBox(AppConstants.StreamQuality.Chunked, streamQualitiesComboBox);
             }
             streamElement.Play();
-
             base.OnNavigatedTo(e);
+            doneLoading = true;
         }
 
         private void streamElement_Tapped(object sender, TappedRoutedEventArgs e)
@@ -101,6 +104,31 @@ namespace TwixelAppUniversal
                 topBar.Visibility = Visibility.Visible;
                 bottomBar.Visibility = Visibility.Visible;
                 showBars = true;
+            }
+        }
+
+        private void streamQualitiesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (doneLoading)
+            {
+                streamElement.Source = qualities[HelperMethods.GetStreamQuality((string)((ComboBoxItem)streamQualitiesComboBox.SelectedItem).Content)];
+                streamElement.Play();
+            }
+        }
+
+        private void SetQualityComboBox(AppConstants.StreamQuality quality, ComboBox comboBox)
+        {
+            for (int i = 0; i < comboBox.Items.Count; i++)
+            {
+                ComboBoxItem item = comboBox.Items[i] as ComboBoxItem;
+                if (item != null)
+                {
+                    if ((string)item.Content == HelperMethods.GetStreamQualityString(quality))
+                    {
+                        comboBox.SelectedIndex = i;
+                        break;
+                    }
+                }
             }
         }
     }

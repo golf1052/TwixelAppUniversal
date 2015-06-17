@@ -65,7 +65,7 @@
         <Grid x:Name="bottomBar" Grid.Row="2">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <AppBarButton x:Name="playPauseButton" HorizontalAlignment="Stretch" Icon="Stop" Label="Pause" VerticalAlignment="Stretch" d:LayoutOverrides="Width"/>
-                <ComboBox x:Name="streamQualitiesComboBox" VerticalAlignment="Center" Width="120"/>
+                <ComboBox x:Name="streamQualitiesComboBox" VerticalAlignment="Center" Width="120" SelectionChanged="streamQualitiesComboBox_SelectionChanged"/>
                 <AppBarButton x:Name="volumeButton" HorizontalAlignment="Stretch" Icon="Volume" Label="Volume" VerticalAlignment="Stretch" d:LayoutOverrides="Width">
                     <AppBarButton.Flyout>
                         <Flyout>

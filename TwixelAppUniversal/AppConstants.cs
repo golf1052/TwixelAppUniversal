@@ -20,5 +20,8 @@ namespace TwixelAppUniversal
             Mobile,
             Chunked
         }
+
+        public static StreamQuality WifiStreamQuality { get; set; }
+        public static StreamQuality CellStreamQuality { get; set; }
     }
 }
