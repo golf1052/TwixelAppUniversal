@@ -172,10 +172,5 @@ namespace TwixelAppUniversal
                 streamOfflineTextBlock.Visibility = Visibility.Visible;
             }
         }
-
-        private void settingsButton_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(SettingsPage));
-        }
     }
 }

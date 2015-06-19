@@ -8,21 +8,46 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <SplitView x:Name="RootSplitView" IsPaneOpen="True" DisplayMode="CompactOverlay">
+        <SplitView x:Name="RootSplitView" DisplayMode="CompactOverlay" OpenPaneLength="150" PaneBackground="#7FF2F2F2" PaneClosed="RootSplitView_PaneClosed">
             <SplitView.Pane>
                 <StackPanel>
-                    <Button Content=" "/>
-                    <Button Content="test 1"/>
-                    <Button Content="test 2"/>
+                    <ToggleButton x:Name="togglePaneButton" VerticalAlignment="Top" Width="48" Height="48" Click="togglePaneButton_Click">
+                        <SymbolIcon Symbol="More"/>
+                    </ToggleButton>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="homeButton" Width="48" Height="48" Click="homeButton_Click">
+                            <SymbolIcon Symbol="Home"/>
+                        </Button>
+                        <TextBlock x:Name="homeTextBlock" Text="Home" VerticalAlignment="Center" Margin="20,0,0,0" Tapped="homeTextBlock_Tapped"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="streamsButton" Width="48" Height="48" Click="streamsButton_Click">
+                            <SymbolIcon Symbol="Video"/>
+                        </Button>
+                        <TextBlock x:Name="streamsTextBlock" Text="Streams" VerticalAlignment="Center" Margin="20,0,0,0" Tapped="streamsTextBlock_Tapped"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="gamesButton" Width="48" Height="48" Click="gamesButton_Click">
+                            <SymbolIcon Symbol="World"/>
+                        </Button>
+                        <TextBlock x:Name="gamesTextBlock" Text="Games" VerticalAlignment="Center" Margin="20,0,0,0" Tapped="gamesTextBlock_Tapped"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="userButton" Width="48" Height="48" Click="userButton_Click">
+                            <SymbolIcon Symbol="Contact"/>
+                        </Button>
+                        <TextBlock x:Name="userTextBlock" Text="User" VerticalAlignment="Center" Margin="20,0,0,0" Tapped="userTextBlock_Tapped"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="settingsButton" Width="48" Height="48" Click="settingsButton_Click">
+                            <SymbolIcon Symbol="Setting"/>
+                        </Button>
+                        <TextBlock x:Name="settingsTextBlock" Text="Settings" VerticalAlignment="Center" Margin="20,0,0,0" Tapped="settingsTextBlock_Tapped"/>
+                    </StackPanel>
                 </StackPanel>
             </SplitView.Pane>
-            <Frame x:Name="frame">
-                
+            <Frame x:Name="frame" Navigating="frame_Navigating">
             </Frame>
         </SplitView>
-        <ToggleButton x:Name="togglePaneButton" VerticalAlignment="Top">
-            <SymbolIcon Symbol="More"/>
-        </ToggleButton>
-
     </Grid>
 </Page>

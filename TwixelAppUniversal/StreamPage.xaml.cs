@@ -95,12 +95,14 @@ namespace TwixelAppUniversal
         {
             if (showBars)
             {
+                AppConstants.RootSplitView.DisplayMode = SplitViewDisplayMode.Overlay;
                 topBar.Visibility = Visibility.Collapsed;
                 bottomBar.Visibility = Visibility.Collapsed;
                 showBars = false;
             }
             else
             {
+                AppConstants.RootSplitView.DisplayMode = SplitViewDisplayMode.CompactOverlay;
                 topBar.Visibility = Visibility.Visible;
                 bottomBar.Visibility = Visibility.Visible;
                 showBars = true;
