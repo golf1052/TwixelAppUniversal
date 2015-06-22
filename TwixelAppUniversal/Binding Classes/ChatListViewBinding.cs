@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using TwixelChat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Imaging;
