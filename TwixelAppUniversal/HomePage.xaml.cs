@@ -157,8 +157,12 @@ namespace TwixelAppUniversal
             streamButton.IsEnabled = true;
             playButton.IsEnabled = true;
             streamOfflineTextBlock.Visibility = Visibility.Collapsed;
+            streamPreviewImage.Source = 
             streamPreviewImage.Source = new BitmapImage(streams[selectedStreamIndex].stream.previewList["large"]);
-            featuredStreamerImage.Fill = new ImageBrush() { ImageSource = new BitmapImage(streams[selectedStreamIndex].stream.channel.logo) };
+            if (streams[selectedStreamIndex].stream.channel.logo != null)
+            {
+                featuredStreamerImage.Fill = new ImageBrush() { ImageSource = new BitmapImage(streams[selectedStreamIndex].stream.channel.logo) };
+            }
             featuredGameTitle.Text = streams[selectedStreamIndex].title;
             featuredGameDescription.Text = streams[selectedStreamIndex].text;
             if (qualities[selectedStreamIndex] == null)

@@ -1,0 +1,16 @@
+﻿<Page x:Name="page"
+    x:Class="TwixelAppUniversal.LoadingPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TwixelAppUniversal"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="page_Loaded">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0">
+            <TextBlock x:Name="loadingText" HorizontalAlignment="Center" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource CornflowerBlue}" Margin="0" d:LayoutOverrides="TopPosition, BottomPosition" FontSize="24" TextTrimming="CharacterEllipsis"/>
+            <ProgressRing x:Name="progressRing" HorizontalAlignment="Center" VerticalAlignment="Stretch" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" IsActive="True" Foreground="{StaticResource CornflowerBlue}" Width="50" Height="50"/>
+        </StackPanel>
+    </Grid>
+</Page>

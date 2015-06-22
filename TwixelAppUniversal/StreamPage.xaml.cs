@@ -26,6 +26,7 @@ namespace TwixelAppUniversal
     /// </summary>
     public sealed partial class StreamPage : Page
     {
+        bool doneLoading = false;
         Stream stream;
         Dictionary<AppConstants.StreamQuality, Uri> qualities;
         bool showBars;
@@ -49,7 +50,7 @@ namespace TwixelAppUniversal
         {
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                messages.Add(new ChatListViewBinding(e.ChatMessage));
+                messages.Add(new ChatListViewBinding(e.ChatMessage, chatClient.Channel.ChannelName));
             });
         }
 
@@ -75,32 +76,63 @@ namespace TwixelAppUniversal
                 item.Content = HelperMethods.GetStreamQualityString(quality.Key);
                 streamQualitiesComboBox.Items.Add(item);
             }
-            if (qualities.ContainsKey(AppConstants.StreamQuality.Mobile))
+            if (qualities.ContainsKey(AppConstants.WifiStreamQuality))
             {
-                streamElement.Source = qualities[AppConstants.StreamQuality.Mobile];
+                streamElement.Source = qualities[AppConstants.WifiStreamQuality];
+                SetQualityComboBox(AppConstants.WifiStreamQuality, streamQualitiesComboBox);
             }
             else
             {
                 streamElement.Source = qualities[AppConstants.StreamQuality.Chunked];
+                SetQualityComboBox(AppConstants.StreamQuality.Chunked, streamQualitiesComboBox);
             }
             streamElement.Play();
-
             base.OnNavigatedTo(e);
+            doneLoading = true;
         }
 
         private void streamElement_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (showBars)
             {
+                HideBarsAnimation.Begin();
+                AppConstants.RootSplitView.DisplayMode = SplitViewDisplayMode.Overlay;
                 topBar.Visibility = Visibility.Collapsed;
                 bottomBar.Visibility = Visibility.Collapsed;
                 showBars = false;
             }
             else
             {
+                ShowBarsAnimation.Begin();
+                AppConstants.RootSplitView.DisplayMode = SplitViewDisplayMode.CompactOverlay;
                 topBar.Visibility = Visibility.Visible;
                 bottomBar.Visibility = Visibility.Visible;
                 showBars = true;
+            }
+        }
+
+        private void streamQualitiesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (doneLoading)
+            {
+                streamElement.Source = qualities[HelperMethods.GetStreamQuality((string)((ComboBoxItem)streamQualitiesComboBox.SelectedItem).Content)];
+                streamElement.Play();
+            }
+        }
+
+        private void SetQualityComboBox(AppConstants.StreamQuality quality, ComboBox comboBox)
+        {
+            for (int i = 0; i < comboBox.Items.Count; i++)
+            {
+                ComboBoxItem item = comboBox.Items[i] as ComboBoxItem;
+                if (item != null)
+                {
+                    if ((string)item.Content == HelperMethods.GetStreamQualityString(quality))
+                    {
+                        comboBox.SelectedIndex = i;
+                        break;
+                    }
+                }
             }
         }
     }

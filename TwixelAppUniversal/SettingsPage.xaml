@@ -1,0 +1,25 @@
+﻿<Page
+    x:Class="TwixelAppUniversal.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TwixelAppUniversal"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+            <TextBlock x:Name="wifiStreamQualityLabel" TextWrapping="Wrap" Text="Default Stream Quality" Margin="0" d:LayoutOverrides="Width, TopPosition, BottomPosition"/>
+            <ComboBox x:Name="wifiStreamQualityComboBox" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch" d:LayoutOverrides="LeftPosition, RightPosition" SelectionChanged="wifiStreamQualityComboBox_SelectionChanged">
+                <ComboBoxItem Content="Source"/>
+                <ComboBoxItem Content="High"/>
+                <ComboBoxItem Content="Medium"/>
+                <ComboBoxItem Content="Low"/>
+                <ComboBoxItem Content="Mobile"/>
+            </ComboBox>
+        </StackPanel>
+        <Button x:Name="backButton" VerticalAlignment="Bottom" HorizontalAlignment="Center" Click="backButton_Click">
+            <SymbolIcon Symbol="Back"/>
+        </Button>
+    </Grid>
+</Page>
