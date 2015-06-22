@@ -136,6 +136,12 @@
     <None Include="TwixelAppUniversal_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Chat\admin-icon.png" />
+    <Content Include="Assets\Chat\broadcaster-icon.png" />
+    <Content Include="Assets\Chat\globalmod-icon.png" />
+    <Content Include="Assets\Chat\mod-icon.png" />
+    <Content Include="Assets\Chat\staff-icon.png" />
+    <Content Include="Assets\Chat\turbo-icon.png" />
     <Content Include="Custom Packages\Flurl.dll" />
     <Content Include="Custom Packages\Flurl.XML" />
     <Content Include="Properties\Default.rd.xml" />

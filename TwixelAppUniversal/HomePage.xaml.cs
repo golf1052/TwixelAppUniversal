@@ -157,6 +157,7 @@ namespace TwixelAppUniversal
             streamButton.IsEnabled = true;
             playButton.IsEnabled = true;
             streamOfflineTextBlock.Visibility = Visibility.Collapsed;
+            streamPreviewImage.Source = 
             streamPreviewImage.Source = new BitmapImage(streams[selectedStreamIndex].stream.previewList["large"]);
             if (streams[selectedStreamIndex].stream.channel.logo != null)
             {

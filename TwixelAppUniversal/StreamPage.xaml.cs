@@ -95,6 +95,7 @@ namespace TwixelAppUniversal
         {
             if (showBars)
             {
+                HideBarsAnimation.Begin();
                 AppConstants.RootSplitView.DisplayMode = SplitViewDisplayMode.Overlay;
                 topBar.Visibility = Visibility.Collapsed;
                 bottomBar.Visibility = Visibility.Collapsed;
@@ -102,6 +103,7 @@ namespace TwixelAppUniversal
             }
             else
             {
+                ShowBarsAnimation.Begin();
                 AppConstants.RootSplitView.DisplayMode = SplitViewDisplayMode.CompactOverlay;
                 topBar.Visibility = Visibility.Visible;
                 bottomBar.Visibility = Visibility.Visible;

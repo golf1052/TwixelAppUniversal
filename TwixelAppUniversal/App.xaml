@@ -9,7 +9,14 @@
         <DataTemplate x:Key="ChatListViewTemplate">
             <Grid>
                 <StackPanel>
-                    <TextBlock TextWrapping="Wrap" Text="{Binding Username}" Foreground="{Binding Color}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Assets/Chat/staff-icon.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Image Source="Assets/Chat/broadcaster-icon.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Image Source="Assets/Chat/turbo-icon.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock TextWrapping="Wrap" Text="{Binding Username}" Foreground="{Binding Color}" Margin="5,0,0,0"/>
+                    </StackPanel>
+                    
                     <TextBlock TextWrapping="Wrap" Text="{Binding Message}" />
                 </StackPanel>
             </Grid>

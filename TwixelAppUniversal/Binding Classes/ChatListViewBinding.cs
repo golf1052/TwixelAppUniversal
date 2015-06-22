@@ -1,9 +1,14 @@
 ﻿using TwixelChat;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace TwixelAppUniversal
 {
     public class ChatListViewBinding
     {
+        public BitmapImage UserType { get; set; }
+        public BitmapImage Broadcaster { get; set; }
+        public BitmapImage Turbo { get; set; }
+        public BitmapImage Subscriber { get; set; }
         public string Username { get; set; }
         public string Color { get; set; }
         public string Message { get; set; }
