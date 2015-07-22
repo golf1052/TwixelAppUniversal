@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Flurl;
 using Newtonsoft.Json.Linq;
 using TwixelAPI;
+using Windows.UI.Popups;
+using Windows.UI.Xaml.Controls;
 
 namespace TwixelAppUniversal
 {
@@ -158,6 +160,22 @@ namespace TwixelAppUniversal
             {
                 return string.Empty;
             }
+        }
+
+        public static async Task ShowMessageDialog(string message, string title = "")
+        {
+            MessageDialog messageDialog = new MessageDialog(message, title);
+            await messageDialog.ShowAsync();
+        }
+
+        public static void HideSplitView()
+        {
+            AppConstants.RootSplitView.DisplayMode = SplitViewDisplayMode.Overlay;
+        }
+
+        public static void ShowSplitView()
+        {
+            AppConstants.RootSplitView.DisplayMode = SplitViewDisplayMode.CompactOverlay;
         }
     }
 }

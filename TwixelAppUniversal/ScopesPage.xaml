@@ -1,0 +1,93 @@
+﻿<Page
+    x:Class="TwixelAppUniversal.ScopesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TwixelAppUniversal"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ScrollViewer>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
+                    <CheckBox x:Name="userReadCheckbox" Content="Read access to non-public user info" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" IsChecked="True"/>
+                    <Button x:Name="userReadButton" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Click="userReadButton_Click">
+                        <SymbolIcon Symbol="Help"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
+                    <CheckBox x:Name="userBlocksEditCheckbox" Content="Ability to ignore and unignore users" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0"/>
+                    <Button x:Name="userBlocksEditButton" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Click="userBlocksEditButton_Click">
+                        <SymbolIcon Symbol="Help"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
+                    <CheckBox x:Name="userBlocksReadCheckbox" Content="Allow access to view ignore list" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0"/>
+                    <Button x:Name="userBlocksReadButton" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Click="userBlocksReadButton_Click">
+                        <SymbolIcon Symbol="Help"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
+                    <CheckBox x:Name="userFollowsEditCheckbox" Content="Ability to follow and unfollow channels" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0"/>
+                    <Button x:Name="userFollowsEditButton" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Click="userFollowsEditButton_Click">
+                        <SymbolIcon Symbol="Help"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
+                    <CheckBox x:Name="channelReadCheckbox" Content="Allow access to channel information" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0"/>
+                    <Button x:Name="channelReadButton" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Click="channelReadButton_Click">
+                        <SymbolIcon Symbol="Help"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
+                    <CheckBox x:Name="channelEditorCheckbox" Content="Ability to update channel's status/game" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0"/>
+                    <Button x:Name="channelEditorButton" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Click="channelEditorButton_Click">
+                        <SymbolIcon Symbol="Help"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
+                    <CheckBox x:Name="channelCommercialCheckbox" Content="Ability to start commercials on channel" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0"/>
+                    <Button x:Name="channelCommercialButton" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Click="channelCommercialButton_Click">
+                        <SymbolIcon Symbol="Help"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
+                    <CheckBox x:Name="channelStreamCheckbox" Content="Ability to reset stream key" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0"/>
+                    <Button x:Name="channelStreamButton" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Click="channelStreamButton_Click">
+                        <SymbolIcon Symbol="Help"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
+                    <CheckBox x:Name="channelSubscriptionsCheckbox" Content="Ability to view subscribers" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0"/>
+                    <Button x:Name="channelSubscriptionsButton" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Click="channelSubscriptionsButton_Click">
+                        <SymbolIcon Symbol="Help"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
+                    <CheckBox x:Name="userSubscriptionsCheckbox" Content="Ability to view subscriptions" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0"/>
+                    <Button x:Name="userSubscriptionsButton" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Click="userSubscriptionsButton_Click">
+                        <SymbolIcon Symbol="Help"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
+                    <CheckBox x:Name="channelCheckSubscriptionCheckbox" Content="Ability to check if a user is subbed to your channel" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" FontSize="15"/>
+                    <Button x:Name="channelCheckSubscriptionButton" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Click="channelCheckSubscriptionButton_Click">
+                        <SymbolIcon Symbol="Help"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
+                    <CheckBox x:Name="chatLoginCheckbox" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Twitch Chat" VerticalAlignment="Top" Margin="0,0,5,0"/>
+                            <Image Source="Assets/kappa-emote.png"/>
+                        </StackPanel>
+                    </CheckBox>
+                    <Button x:Name="chatLoginButton" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Click="chatLoginButton_Click">
+                        <SymbolIcon Symbol="Help"/>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

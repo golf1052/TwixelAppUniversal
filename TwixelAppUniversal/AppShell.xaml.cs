@@ -71,9 +71,19 @@ namespace TwixelAppUniversal
 
         private void userButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(AppFrame.Content is UserPage))
+            if (AppConstants.activeUser != null)
             {
-                AppFrame.Navigate(typeof(UserPage));
+                if (!(AppFrame.Content is UserPage))
+                {
+                    AppFrame.Navigate(typeof(UserPage));
+                }
+            }
+            else
+            {
+                if (!(AppFrame.Content is AccountPage))
+                {
+                    AppFrame.Navigate(typeof(AccountPage));
+                }
             }
         }
 

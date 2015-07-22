@@ -7,8 +7,8 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="080750c5-9e48-401a-89ef-1ca8a39122a7"
-    Publisher="CN=ntwat"
+    Name="TwixelAppUniversal"
+    Publisher="CN=golf1052"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="080750c5-9e48-401a-89ef-1ca8a39122a7" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>

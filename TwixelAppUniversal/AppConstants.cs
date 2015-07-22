@@ -12,6 +12,8 @@ namespace TwixelAppUniversal
     public class AppConstants
     {
         public static Twixel Twixel;
+        public static Dictionary<string, string> users;
+        public static User activeUser;
         private static readonly SolidColorBrush themeColor;
         public static SolidColorBrush ThemeColor { get { return themeColor; } }
         public static SplitView RootSplitView;
