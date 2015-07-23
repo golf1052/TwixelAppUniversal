@@ -101,6 +101,7 @@
     <Compile Include="AppShell.xaml.cs">
       <DependentUpon>AppShell.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Binding Classes\AccountListViewBinding.cs" />
     <Compile Include="Binding Classes\ChatListViewBinding.cs" />
     <Compile Include="GamesPage.xaml.cs">
       <DependentUpon>GamesPage.xaml</DependentUpon>
@@ -149,6 +150,7 @@
     <Content Include="Assets\Chat\staff-icon.png" />
     <Content Include="Assets\Chat\turbo-icon.png" />
     <Content Include="Assets\kappa-emote.png" />
+    <Content Include="Assets\voyboy.jpg" />
     <Content Include="Custom Packages\Flurl.dll" />
     <Content Include="Custom Packages\Flurl.XML" />
     <Content Include="Properties\Default.rd.xml" />

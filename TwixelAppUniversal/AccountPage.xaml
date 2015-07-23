@@ -8,6 +8,12 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Rectangle Tapped="Rectangle_Tapped" Fill="{ThemeResource ApplicationPageBackgroundThemeBrush}"/>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock x:Name="proceedTextBlock" TextWrapping="Wrap" Text="Login to Twitch" Foreground="{StaticResource CornflowerBlue}" Margin="0,0,0,50" d:LayoutOverrides="Width" FontSize="26.667" HorizontalAlignment="Center"/>
+            <ListView x:Name="accountsListView" ItemTemplate="{StaticResource AccountListViewTemplate}" d:LayoutOverrides="LeftPosition, RightPosition" Loaded="accountsListView_Loaded" SelectionChanged="accountsListView_SelectionChanged"/>
+            <Button x:Name="proceedButton" Content="Login" HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Width="250" Margin="0,50,0,0"/>
+        </StackPanel>
 
     </Grid>
 </Page>

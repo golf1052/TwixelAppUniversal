@@ -83,7 +83,7 @@ namespace TwixelAppUniversal
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                shell.AppFrame.Navigate(typeof(ScopesPage), e.Arguments);
+                shell.AppFrame.Navigate(typeof(AccountPage), e.Arguments);
             }
 
             // Ensure the current window is active

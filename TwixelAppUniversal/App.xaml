@@ -20,6 +20,18 @@
                 </StackPanel>
             </Grid>
         </DataTemplate>
+        <DataTemplate x:Key="AccountListViewTemplate">
+            <Grid>
+                <StackPanel Orientation="Horizontal">
+                    <Ellipse Width="100" Height="100">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{Binding Image}"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Center" Margin="20,0,0,0" Foreground="{StaticResource CornflowerBlue}" FontSize="48"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
     </Application.Resources>
 
 </Application>

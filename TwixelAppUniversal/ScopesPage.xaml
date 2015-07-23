@@ -87,6 +87,15 @@
                         <SymbolIcon Symbol="Help"/>
                     </Button>
                 </StackPanel>
+                <Grid Margin="0,25,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="cancelButton" Content="Cancel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#33000000" Click="cancelButton_Click"/>
+                    <Button x:Name="confirmButton" Content="Confirm" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Click="confirmButton_Click"/>
+                </Grid>
             </StackPanel>
         </ScrollViewer>
     </Grid>

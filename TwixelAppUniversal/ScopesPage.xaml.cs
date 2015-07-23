@@ -61,7 +61,7 @@ We promise not to do anything bad with this.");
         {
             await HelperMethods.ShowMessageDialog(
 @"Lets us view your email.
-Lets us view your stream key.");
+Lets us get your stream key.");
         }
 
         private async void channelEditorButton_Click(object sender, RoutedEventArgs e)
@@ -97,6 +97,16 @@ Lets us view your stream key.");
         private async void chatLoginButton_Click(object sender, RoutedEventArgs e)
         {
             await HelperMethods.ShowMessageDialog("Ability to login to chat and send messages.");
+        }
+
+        private void cancelButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void confirmButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -33,7 +33,9 @@ namespace TwixelAppUniversal
 
         static AppConstants()
         {
+            users = new Dictionary<string, string>();
             themeColor = new SolidColorBrush(Windows.UI.Colors.CornflowerBlue);
+            activeUser = null;
         }
     }
 }
