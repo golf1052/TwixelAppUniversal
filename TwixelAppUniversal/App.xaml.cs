@@ -16,8 +16,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=402347&clcid=0x409
-
 namespace TwixelAppUniversal
 {
     /// <summary>
@@ -26,21 +24,17 @@ namespace TwixelAppUniversal
     sealed partial class App : Application
     {
         /// <summary>
-        /// Allows tracking page views, exceptions and other telemetry through the Microsoft Application Insights service.
-        /// </summary>
-        public static Microsoft.ApplicationInsights.TelemetryClient TelemetryClient;
-
-        /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
         public App()
         {
-            TelemetryClient = new Microsoft.ApplicationInsights.TelemetryClient();
-
+            Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
+                Microsoft.ApplicationInsights.WindowsCollectors.Metadata |
+                Microsoft.ApplicationInsights.WindowsCollectors.Session);
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-            AppConstants.Twixel = new Twixel(Secrets.ClientId, Secrets.ClientSecret, Secrets.RedirectUrl, Twixel.APIVersion.v3);
+            AppConstants.Twixel = new Twixel(Secrets.ClientId, Secrets.RedirectUrl, Twixel.APIVersion.v3);
         }
 
         /// <summary>
@@ -73,10 +67,10 @@ namespace TwixelAppUniversal
                 {
                     //TODO: Load state from previously suspended application
                 }
-            }
 
-            // Place the app shell in the current Window
-            Window.Current.Content = shell;
+                // Place the frame in the current Window
+                Window.Current.Content = shell;
+            }
 
             if (shell.AppFrame.Content == null)
             {
@@ -85,7 +79,6 @@ namespace TwixelAppUniversal
                 // parameter
                 shell.AppFrame.Navigate(typeof(AccountPage), e.Arguments);
             }
-
             // Ensure the current window is active
             Window.Current.Activate();
         }
