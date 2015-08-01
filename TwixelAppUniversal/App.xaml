@@ -28,7 +28,7 @@
                             <ImageBrush ImageSource="{Binding Image}"/>
                         </Ellipse.Fill>
                     </Ellipse>
-                    <TextBlock TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Center" Margin="20,0,0,0" Foreground="{StaticResource CornflowerBlue}" FontSize="48"/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding DisplayName}" VerticalAlignment="Center" Margin="20,0,0,0" Foreground="{StaticResource CornflowerBlue}" FontSize="48"/>
                 </StackPanel>
             </Grid>
         </DataTemplate>

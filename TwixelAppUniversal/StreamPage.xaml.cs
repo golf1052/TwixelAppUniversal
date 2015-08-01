@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using TwixelChat;
 using TwixelChat.Events;
+using Windows.UI.Core;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -45,6 +46,18 @@ namespace TwixelAppUniversal
             chatClient.MessageRecieved += ChatClient_MessageRecieved;
             messages = new ObservableCollection<ChatListViewBinding>();
             chatListView.ItemsSource = messages;
+
+            SystemNavigationManager currentView = SystemNavigationManager.GetForCurrentView();
+            currentView.BackRequested += CurrentView_BackRequested;
+        }
+
+        private void CurrentView_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            //if (Frame.CanGoBack)
+            //{
+            //    Frame.GoBack();
+            //}
+            e.Handled = true;
         }
 
         private async void ChatClient_MessageRecieved(object sender, MessageRecievedEventArgs e)

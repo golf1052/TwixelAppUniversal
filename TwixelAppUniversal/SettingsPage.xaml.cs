@@ -51,5 +51,10 @@ namespace TwixelAppUniversal
                 roamingSettings.Values["wifiStreamQuality"] = HelperMethods.GetStreamQualityString(AppConstants.WifiStreamQuality);
             }
         }
+
+        private void accountButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(AccountPage));
+        }
     }
 }

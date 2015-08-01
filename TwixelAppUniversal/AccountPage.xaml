@@ -12,7 +12,8 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock x:Name="proceedTextBlock" TextWrapping="Wrap" Text="Login to Twitch" Foreground="{StaticResource CornflowerBlue}" Margin="0,0,0,50" d:LayoutOverrides="Width" FontSize="26.667" HorizontalAlignment="Center"/>
             <ListView x:Name="accountsListView" ItemTemplate="{StaticResource AccountListViewTemplate}" d:LayoutOverrides="LeftPosition, RightPosition" Loaded="accountsListView_Loaded" SelectionChanged="accountsListView_SelectionChanged"/>
-            <Button x:Name="proceedButton" Content="Login" HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Width="250" Margin="0,50,0,0"/>
+            <Button x:Name="proceedButton" Content="Login" HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Width="250" Margin="0,50,0,0" Click="proceedButton_Click"/>
+            <Button x:Name="changePermissionsButton" Content="Change Permissions" HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Width="250" Margin="0,15,0,0" Click="changePermissionsButton_Click" IsEnabled="False"/>
         </StackPanel>
 
     </Grid>

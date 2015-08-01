@@ -100,7 +100,7 @@ namespace TwixelAppUniversal
                 {
                     roamingSettings.Values["activeUser"] = string.Empty;
                 }
-                string activeUser = (string)roamingSettings.Values["aciveUser"];
+                string activeUser = (string)roamingSettings.Values["activeUser"];
                 if (!string.IsNullOrEmpty(activeUser))
                 {
                     if (AppConstants.users.ContainsKey(activeUser))

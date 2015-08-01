@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TwixelAPI.Constants;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -30,6 +31,7 @@ namespace TwixelAppUniversal
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             HelperMethods.HideSplitView();
+            HelperMethods.DisableBackButton();
             base.OnNavigatedTo(e);
         }
 
@@ -101,12 +103,61 @@ Lets us get your stream key.");
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Frame.GoBack();
         }
 
         private void confirmButton_Click(object sender, RoutedEventArgs e)
         {
-
+            List<TwitchConstants.Scope> scopes = new List<TwitchConstants.Scope>();
+            if (userReadCheckbox.IsChecked.Value)
+            {
+                scopes.Add(TwitchConstants.Scope.UserRead);
+            }
+            if (userBlocksEditCheckbox.IsChecked.Value)
+            {
+                scopes.Add(TwitchConstants.Scope.UserBlocksEdit);
+            }
+            if (userBlocksReadCheckbox.IsChecked.Value)
+            {
+                scopes.Add(TwitchConstants.Scope.UserBlocksRead);
+            }
+            if (userFollowsEditCheckbox.IsChecked.Value)
+            {
+                scopes.Add(TwitchConstants.Scope.UserFollowsEdit);
+            }
+            if (channelReadCheckbox.IsChecked.Value)
+            {
+                scopes.Add(TwitchConstants.Scope.ChannelRead);
+            }
+            if (channelEditorCheckbox.IsChecked.Value)
+            {
+                scopes.Add(TwitchConstants.Scope.ChannelEditor);
+            }
+            if (channelCommercialCheckbox.IsChecked.Value)
+            {
+                scopes.Add(TwitchConstants.Scope.ChannelCommercial);
+            }
+            if (channelStreamCheckbox.IsChecked.Value)
+            {
+                scopes.Add(TwitchConstants.Scope.ChannelStream);
+            }
+            if (channelSubscriptionsCheckbox.IsChecked.Value)
+            {
+                scopes.Add(TwitchConstants.Scope.ChannelSubscriptions);
+            }
+            if (userSubscriptionsCheckbox.IsChecked.Value)
+            {
+                scopes.Add(TwitchConstants.Scope.UserSubcriptions);
+            }
+            if (channelCheckSubscriptionCheckbox.IsChecked.Value)
+            {
+                scopes.Add(TwitchConstants.Scope.ChannelCheckSubscription);
+            }
+            if (chatLoginCheckbox.IsChecked.Value)
+            {
+                scopes.Add(TwitchConstants.Scope.ChatLogin);
+            }
+            Frame.Navigate(typeof(FinalConfirmation), scopes);
         }
     }
 }

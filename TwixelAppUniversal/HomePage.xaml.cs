@@ -38,6 +38,15 @@ namespace TwixelAppUniversal
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
+            if (Frame.BackStack.Count > 0)
+            {
+                if (Frame.BackStack[0].SourcePageType == typeof(LoadingPage) ||
+                    Frame.BackStack[0].SourcePageType == typeof(FinalConfirmation))
+                {
+                    HelperMethods.DisableBackButton();
+                }
+            }
+
             streams = await AppConstants.Twixel.RetrieveFeaturedStreams(0, 10);
             foreach (FeaturedStream stream in streams)
             {

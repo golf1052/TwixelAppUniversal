@@ -38,6 +38,26 @@ namespace TwixelAppUniversal
         private void AppShell_Loaded(object sender, RoutedEventArgs e)
         {
             Current = this;
+            AppFrame.Navigating += AppFrame_Navigating;
+        }
+
+        private void AppFrame_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            //var backStack = AppFrame.BackStack;
+            //foreach (var frame in backStack)
+            //{
+            //    System.Diagnostics.Debug.WriteLine(frame.SourcePageType);
+            //}
+            HelperMethods.EnableBackButton();
+            HelperMethods.ShowSplitView();
+            if (AppConstants.activeUser == null)
+            {
+                userTextBlock.Text = "Login";
+            }
+            else
+            {
+                userTextBlock.Text = AppConstants.activeUser.displayName;
+            }
         }
 
         private void togglePaneButton_Click(object sender, RoutedEventArgs e)

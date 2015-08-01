@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Flurl;
 using Newtonsoft.Json.Linq;
 using TwixelAPI;
+using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
@@ -176,6 +177,18 @@ namespace TwixelAppUniversal
         public static void ShowSplitView()
         {
             AppConstants.RootSplitView.DisplayMode = SplitViewDisplayMode.CompactOverlay;
+        }
+
+        public static void EnableBackButton()
+        {
+            SystemNavigationManager currentView = SystemNavigationManager.GetForCurrentView();
+            currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+        }
+
+        public static void DisableBackButton()
+        {
+            SystemNavigationManager currentView = SystemNavigationManager.GetForCurrentView();
+            currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
         }
     }
 }
