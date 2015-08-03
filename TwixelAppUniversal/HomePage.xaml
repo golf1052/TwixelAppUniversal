@@ -8,44 +8,56 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid VerticalAlignment="Top">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Ellipse x:Name="featuredStreamerImage" Width="100" HorizontalAlignment="Right" Height="100" Margin="0,0,10,10">
-                    <Ellipse.Fill>
-                        <ImageBrush/>
-                    </Ellipse.Fill>
-                </Ellipse>
-                <TextBlock x:Name="featuredGameTitle" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" d:LayoutOverrides="Height" FontSize="16" VerticalAlignment="Center" Grid.Column="1"/>
-            </Grid>
-            <Image x:Name="streamPreviewImage" Grid.Row="1"/>
-            <TextBlock x:Name="streamOfflineTextBlock" Grid.Row="1" Text="stream offline" Foreground="{StaticResource CornflowerBlue}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" Visibility="Collapsed"/>
-            <MediaElement x:Name="featuredStreamMediaElement" HorizontalAlignment="Center" d:LayoutOverrides="Width, Height" Margin="0" VerticalAlignment="Top" Grid.Row="1"/>
-            <TextBlock x:Name="featuredGameDescription" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" d:LayoutOverrides="Height" Grid.Row="3" FontSize="12"/>
-            <StackPanel Orientation="Horizontal" Margin="0" d:LayoutOverrides="Width" VerticalAlignment="Top" Grid.Row="2" HorizontalAlignment="Center">
-                <Button x:Name="prevButton" VerticalAlignment="Top" HorizontalAlignment="Stretch" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" Click="prevButton_Click">
-                    <SymbolIcon Symbol="Previous"/>
-                </Button>
-                <Button x:Name="streamButton" VerticalAlignment="Top" HorizontalAlignment="Stretch" Click="streamButton_Click">
-                    <SymbolIcon Symbol="Video"/>
-                </Button>
-                <Button x:Name="playButton" VerticalAlignment="Top" HorizontalAlignment="Stretch" d:LayoutOverrides="TopPosition, BottomPosition" Click="playButton_Click">
-                    <SymbolIcon x:Name="playPauseIcon" Symbol="Play"/>
-                </Button>
-                <Button x:Name="nextButton" VerticalAlignment="Top" HorizontalAlignment="Stretch" d:LayoutOverrides="TopPosition, BottomPosition" Click="nextButton_Click">
-                    <SymbolIcon Symbol="Next"/>
-                </Button>
-            </StackPanel>
-        </Grid>
+        <ScrollViewer>
+            <RelativePanel>
+                <Grid x:Name="streamGrid" Margin="0" d:LayoutOverrides="Height" RelativePanel.AlignHorizontalCenterWithPanel="True" Padding="0,0,0,25">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid VerticalAlignment="Top" Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Ellipse x:Name="featuredStreamerImage" Width="100" HorizontalAlignment="Right" Height="100" Margin="0,0,10,10">
+                                <Ellipse.Fill>
+                                    <ImageBrush/>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <TextBlock x:Name="featuredGameTitle" HorizontalAlignment="Center" Text="" d:LayoutOverrides="Height" FontSize="16" VerticalAlignment="Center" Grid.Column="1" TextTrimming="CharacterEllipsis"/>
+                        </Grid>
+                        <Image x:Name="streamPreviewImage" Grid.Row="1"/>
+                        <TextBlock x:Name="streamOfflineTextBlock" Grid.Row="1" Text="stream offline" Foreground="{StaticResource CornflowerBlue}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" Visibility="Collapsed"/>
+                        <MediaElement x:Name="featuredStreamMediaElement" HorizontalAlignment="Center" d:LayoutOverrides="Width, Height" Margin="0" VerticalAlignment="Top" Grid.Row="1"/>
+                        <TextBlock x:Name="featuredGameDescription" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" d:LayoutOverrides="Height" Grid.Row="3" FontSize="12"/>
+                        <StackPanel Orientation="Horizontal" Margin="0" d:LayoutOverrides="Width" VerticalAlignment="Top" Grid.Row="2" HorizontalAlignment="Center">
+                            <Button x:Name="prevButton" VerticalAlignment="Top" HorizontalAlignment="Stretch" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" Click="prevButton_Click">
+                                <SymbolIcon Symbol="Previous"/>
+                            </Button>
+                            <Button x:Name="streamButton" VerticalAlignment="Top" HorizontalAlignment="Stretch" Click="streamButton_Click">
+                                <SymbolIcon Symbol="Video"/>
+                            </Button>
+                            <Button x:Name="playButton" VerticalAlignment="Top" HorizontalAlignment="Stretch" d:LayoutOverrides="TopPosition, BottomPosition" Click="playButton_Click">
+                                <SymbolIcon x:Name="playPauseIcon" Symbol="Play"/>
+                            </Button>
+                            <Button x:Name="nextButton" VerticalAlignment="Top" HorizontalAlignment="Stretch" d:LayoutOverrides="TopPosition, BottomPosition" Click="nextButton_Click">
+                                <SymbolIcon Symbol="Next"/>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+                <GridView x:Name="topGamesGridView" d:LayoutOverrides="Height, LeftPosition, RightPosition, TopPosition, BottomPosition" Loaded="topGamesGridView_Loaded" ItemTemplate="{StaticResource GameItemTemplate}" RelativePanel.Below="streamGrid" RelativePanel.AlignHorizontalCenterWithPanel="True" SelectionMode="None" IsItemClickEnabled="True" ItemClick="topGamesGridView_ItemClick"/>
+            </RelativePanel>
+        </ScrollViewer>
     </Grid>
 </Page>

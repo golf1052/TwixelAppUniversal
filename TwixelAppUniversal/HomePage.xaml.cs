@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -29,11 +30,14 @@ namespace TwixelAppUniversal
         List<Dictionary<AppConstants.StreamQuality, Uri>> qualities;
         int selectedStreamIndex = 0;
 
+        ObservableCollection<GameGridViewBinding> topGamesCollection;
+
         public HomePage()
         {
             this.InitializeComponent();
             streams = new List<FeaturedStream>();
             qualities = new List<Dictionary<AppConstants.StreamQuality, Uri>>();
+            topGamesCollection = new ObservableCollection<GameGridViewBinding>();
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -73,6 +77,12 @@ namespace TwixelAppUniversal
             SetUpFeaturedStream();
             playButton.IsEnabled = true;
             nextButton.IsEnabled = true;
+
+            Total<List<Game>> topGames = await AppConstants.Twixel.RetrieveTopGames(0, 10);
+            foreach (Game game in topGames.wrapped)
+            {
+                topGamesCollection.Add(new GameGridViewBinding(game));
+            }
             base.OnNavigatedTo(e);
         }
 
@@ -181,6 +191,16 @@ namespace TwixelAppUniversal
                 streamPreviewImage.Source = null;
                 streamOfflineTextBlock.Visibility = Visibility.Visible;
             }
+        }
+
+        private void topGamesGridView_Loaded(object sender, RoutedEventArgs e)
+        {
+            topGamesGridView.ItemsSource = topGamesCollection;
+        }
+
+        private void topGamesGridView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
         }
     }
 }

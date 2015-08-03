@@ -150,6 +150,7 @@
     <None Include="TwixelAppUniversal_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\channelsDarkIcon.png" />
     <Content Include="Assets\Chat\admin-icon.png" />
     <Content Include="Assets\Chat\broadcaster-icon.png" />
     <Content Include="Assets\Chat\globalmod-icon.png" />
@@ -157,6 +158,7 @@
     <Content Include="Assets\Chat\staff-icon.png" />
     <Content Include="Assets\Chat\turbo-icon.png" />
     <Content Include="Assets\kappa-emote.png" />
+    <Content Include="Assets\viewersDarkIcon.png" />
     <Content Include="Assets\voyboy.jpg" />
     <Content Include="Custom Packages\Flurl.dll" />
     <Content Include="Custom Packages\Flurl.XML" />
