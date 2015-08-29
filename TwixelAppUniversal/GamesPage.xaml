@@ -8,6 +8,16 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ProgressBar x:Name="progressBar" Height="10" VerticalAlignment="Top" IsIndeterminate="True"/>
+
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="All Games" VerticalAlignment="Top" Foreground="Black" FontSize="26.667" Margin="20,20,0,10"/>
+        <ScrollViewer x:Name="scrollViewer" Margin="0" Grid.Row="1">
+            <GridView x:Name="gamesGridView" d:LayoutOverrides="TopMargin, BottomMargin" ItemTemplate="{StaticResource GameItemTemplate}" SelectionMode="None" IsItemClickEnabled="True" ItemClick="gamesGridView_ItemClick" Loaded="gamesGridView_Loaded"/>
+        </ScrollViewer>
 
     </Grid>
 </Page>

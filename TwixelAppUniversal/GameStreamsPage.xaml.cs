@@ -25,9 +25,7 @@ namespace TwixelAppUniversal
     /// </summary>
     public sealed partial class GameStreamsPage : Page
     {
-        bool currentlyLoading;
-        bool endOfList;
-        int offset;
+        ItemLoader streamsLoader;
 
         ObservableCollection<GameStreamsGridViewBinding> streamsCollection;
         Game game;
@@ -35,9 +33,7 @@ namespace TwixelAppUniversal
         public GameStreamsPage()
         {
             this.InitializeComponent();
-            currentlyLoading = true;
-            endOfList = false;
-            offset = 0;
+            streamsLoader = new ItemLoader(LoadStreams, scrollViewer, progressBar);
             streamsCollection = new ObservableCollection<GameStreamsGridViewBinding>();
         }
 
@@ -56,7 +52,6 @@ namespace TwixelAppUniversal
                 gameViewers.Text = game.viewers.Value.ToString();
             }
 
-            streamsCollection = new ObservableCollection<GameStreamsGridViewBinding>();
             await LoadStreams();
             
             base.OnNavigatedTo(e);
@@ -64,20 +59,16 @@ namespace TwixelAppUniversal
         
         async Task LoadStreams()
         {
-            currentlyLoading = true;
-            Total<List<Stream>> streams = await AppConstants.Twixel.RetrieveStreams(game.name, new List<string>(), offset, 100);
-            if (streams.wrapped.Count == 0)
+            streamsLoader.StartLoading();
+            Total<List<Stream>> streams = await AppConstants.Twixel.RetrieveStreams(game.name, new List<string>(), streamsLoader.Offset, 100);
+            if (!streamsLoader.CheckForEnd(streams.wrapped))
             {
-                endOfList = true;
-                currentlyLoading = false;
-                return;
+                foreach (Stream stream in streams.wrapped)
+                {
+                    streamsCollection.Add(new GameStreamsGridViewBinding(stream));
+                }
+                streamsLoader.EndLoading(100);
             }
-            foreach (Stream stream in streams.wrapped)
-            {
-                streamsCollection.Add(new GameStreamsGridViewBinding(stream));
-            }
-            offset += 100;
-            currentlyLoading = false;
         }
 
         private void gameStreamsGridView_Loaded(object sender, RoutedEventArgs e)
@@ -93,17 +84,6 @@ namespace TwixelAppUniversal
             Dictionary<AppConstants.StreamQuality, Uri> qualities = await HelperMethods.RetrieveHlsStream(streamItem.stream.channel.name);
             parameters.Add(qualities);
             Frame.Navigate(typeof(StreamPage), parameters);
-        }
-
-        private async void scrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
-        {
-            if (scrollViewer.ScrollableWidth == scrollViewer.HorizontalOffset)
-            {
-                if (!currentlyLoading && !endOfList)
-                {
-                    await LoadStreams();
-                }
-            }
         }
     }
 }

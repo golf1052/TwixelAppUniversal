@@ -36,6 +36,8 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        <ProgressBar x:Name="progressBar" Height="10" VerticalAlignment="Top" IsIndeterminate="True"/>
+
         <RelativePanel>
             <Image x:Name="gameLogo" Width="200" Height="100"/>
             <TextBlock x:Name="gameName" Text="Hearthstone: Heroes of Warcraft" FontSize="26.667" TextTrimming="CharacterEllipsis" RelativePanel.LeftOf="" RelativePanel.RightOf="gameLogo" RelativePanel.AlignVerticalCenterWith="gameLogo" Padding="0" Margin="0,0,30,0"/>
@@ -44,7 +46,7 @@
             <TextBlock x:Name="gameViewers" Text="9001" FontSize="26.667" RelativePanel.AlignVerticalCenterWith="gameChannels" RelativePanel.RightOf="channelsImage" RelativePanel.Below="" Margin="20,0,5,0" TextTrimming="CharacterEllipsis"/>
             <Image x:Name="viewersImage" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="None" Source="Assets/viewersDarkIcon.png" RelativePanel.RightOf="gameViewers" RelativePanel.Below="gameLogo" RelativePanel.AlignVerticalCenterWith="gameViewers"/>
         </RelativePanel>
-        <ScrollViewer x:Name="scrollViewer" Margin="0,0,0,35.667" Grid.Row="1" ViewChanged="scrollViewer_ViewChanged">
+        <ScrollViewer x:Name="scrollViewer" Margin="0,0,0,35.667" Grid.Row="1">
             <GridView x:Name="gameStreamsGridView" VerticalAlignment="Center" ItemTemplate="{StaticResource GameStreamsTemplate}" Loaded="gameStreamsGridView_Loaded" ItemClick="gameStreamsGridView_ItemClick" SelectionMode="None" IsItemClickEnabled="True" HorizontalAlignment="Center" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
         </ScrollViewer>
 

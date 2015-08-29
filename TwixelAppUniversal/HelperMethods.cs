@@ -190,5 +190,17 @@ namespace TwixelAppUniversal
             SystemNavigationManager currentView = SystemNavigationManager.GetForCurrentView();
             currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
         }
+
+        public static void EnableIndeterminateProgressBar(ProgressBar progressBar)
+        {
+            progressBar.IsIndeterminate = true;
+            progressBar.Visibility = Windows.UI.Xaml.Visibility.Visible;
+        }
+
+        public static void DisableIndeterminateProgressBar(ProgressBar progressBar)
+        {
+            progressBar.IsIndeterminate = false;
+            progressBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+        }
     }
 }
