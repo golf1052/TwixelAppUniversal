@@ -109,16 +109,21 @@
     <Compile Include="Binding Classes\AccountListViewBinding.cs" />
     <Compile Include="Binding Classes\ChatListViewBinding.cs" />
     <Compile Include="Binding Classes\GameGridViewBinding.cs" />
+    <Compile Include="Binding Classes\GameStreamsGridViewBinding.cs" />
     <Compile Include="FinalConfirmation.xaml.cs">
       <DependentUpon>FinalConfirmation.xaml</DependentUpon>
     </Compile>
     <Compile Include="GamesPage.xaml.cs">
       <DependentUpon>GamesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GameStreamsPage.xaml.cs">
+      <DependentUpon>GameStreamsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="HelperMethods.cs" />
     <Compile Include="HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ItemLoader.cs" />
     <Compile Include="LoadingPage.xaml.cs">
       <DependentUpon>LoadingPage.xaml</DependentUpon>
     </Compile>
@@ -158,6 +163,7 @@
     <Content Include="Assets\Chat\staff-icon.png" />
     <Content Include="Assets\Chat\turbo-icon.png" />
     <Content Include="Assets\kappa-emote.png" />
+    <Content Include="Assets\liveViewersIcon.png" />
     <Content Include="Assets\viewersDarkIcon.png" />
     <Content Include="Assets\voyboy.jpg" />
     <Content Include="Custom Packages\Flurl.dll" />
@@ -191,6 +197,10 @@
     <Page Include="GamesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GameStreamsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="HomePage.xaml">
       <Generator>MSBuild:Compile</Generator>

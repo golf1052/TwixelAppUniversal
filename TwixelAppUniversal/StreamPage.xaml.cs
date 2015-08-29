@@ -53,10 +53,10 @@ namespace TwixelAppUniversal
 
         private void CurrentView_BackRequested(object sender, BackRequestedEventArgs e)
         {
-            //if (Frame.CanGoBack)
-            //{
-            //    Frame.GoBack();
-            //}
+            if (Frame.CanGoBack)
+            {
+                Frame.GoBack();
+            }
             e.Handled = true;
         }
 

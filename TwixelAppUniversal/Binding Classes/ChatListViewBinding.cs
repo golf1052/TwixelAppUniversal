@@ -1,5 +1,6 @@
 using System;
 using TwixelChat;
+using TwixelEmotes;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -61,7 +62,7 @@ namespace TwixelAppUniversal
 
                 if (message.User.Subscriber)
                 {
-                    Subscriber = "Assets/Chat/staff-icon.png";
+                    Subscriber = "https:" + EmoteManager.ChannelsByName[channel].Badge;
                 }
                 else
                 {

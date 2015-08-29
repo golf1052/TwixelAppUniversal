@@ -16,6 +16,7 @@ using Windows.Storage;
 using Newtonsoft.Json.Linq;
 using TwixelAPI;
 using System.Threading.Tasks;
+using TwixelEmotes;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -41,6 +42,8 @@ namespace TwixelAppUniversal
             HelperMethods.HideSplitView();
             ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
             StorageFolder roamingFolder = ApplicationData.Current.RoamingFolder;
+            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+            await DoEmotesStuff(localFolder);
             loadingText.Text = "loading settings";
             if (!roamingSettings.Values.ContainsKey("wifiStreamQuality"))
             {
@@ -125,6 +128,51 @@ namespace TwixelAppUniversal
                     // need to choose a new active user
                 }
             }
+        }
+
+        private async Task DoEmotesStuff(StorageFolder folder)
+        {
+            loadingText.Text = "loading emotes";
+            StorageFile globalEmotesFile = await folder.CreateFileAsync("GlobalEmotes.json", CreationCollisionOption.OpenIfExists);
+            StorageFile globalTimeFile = await folder.CreateFileAsync("GlobalTime.json", CreationCollisionOption.OpenIfExists);
+            StorageFile subscriberEmotesFile = await folder.CreateFileAsync("SubscriberEmotes.json", CreationCollisionOption.OpenIfExists);
+            StorageFile subscriberTimeFile = await folder.CreateFileAsync("SubscriberTime.json", CreationCollisionOption.OpenIfExists);
+            StorageFile setsEmotesFile = await folder.CreateFileAsync("SetsEmotes.json", CreationCollisionOption.OpenIfExists);
+            StorageFile setsTimeFile = await folder.CreateFileAsync("SetsTime.json", CreationCollisionOption.OpenIfExists);
+            StorageFile imagesEmotesFile = await folder.CreateFileAsync("ImagesEmotes.json", CreationCollisionOption.OpenIfExists);
+            StorageFile imagesTimeFile = await folder.CreateFileAsync("ImagesTime.json", CreationCollisionOption.OpenIfExists);
+            StorageFile basic0EmotesFile = await folder.CreateFileAsync("Basic0Emotes.json", CreationCollisionOption.OpenIfExists);
+            StorageFile basic33EmotesFile = await folder.CreateFileAsync("Basic33Emotes.json", CreationCollisionOption.OpenIfExists);
+            StorageFile basic42EmotesFile = await folder.CreateFileAsync("Basic42Emotes.json", CreationCollisionOption.OpenIfExists);
+            StorageFile basicTimeFile = await folder.CreateFileAsync("BasicTime.json", CreationCollisionOption.OpenIfExists);
+            EmoteDataCache emoteDataCache = new EmoteDataCache(await FileIO.ReadTextAsync(globalEmotesFile), await FileIO.ReadTextAsync(globalTimeFile),
+                await FileIO.ReadTextAsync(subscriberEmotesFile), await FileIO.ReadTextAsync(subscriberTimeFile),
+                await FileIO.ReadTextAsync(setsEmotesFile), await FileIO.ReadTextAsync(setsTimeFile),
+                await FileIO.ReadTextAsync(imagesEmotesFile), await FileIO.ReadTextAsync(imagesTimeFile),
+                await FileIO.ReadTextAsync(basic0EmotesFile), await FileIO.ReadTextAsync(basic33EmotesFile), await FileIO.ReadTextAsync(basic42EmotesFile), await FileIO.ReadTextAsync(basicTimeFile));
+            if (string.IsNullOrEmpty(emoteDataCache.GlobalString) || string.IsNullOrEmpty(emoteDataCache.SubscriberString) || string.IsNullOrEmpty(emoteDataCache.SetsString) ||
+                string.IsNullOrEmpty(emoteDataCache.ImagesString) || string.IsNullOrEmpty(emoteDataCache.Basic0String) || string.IsNullOrEmpty(emoteDataCache.Basic33String) ||
+                string.IsNullOrEmpty(emoteDataCache.Basic42String))
+            {
+                await EmoteManager.Initialize();
+            }
+            else
+            {
+                await EmoteManager.Initialize(emoteDataCache);
+            }
+            EmoteDataCache newCache = EmoteManager.GetDataCache();
+            await FileIO.WriteTextAsync(globalEmotesFile, newCache.GlobalString);
+            await FileIO.WriteTextAsync(globalTimeFile, newCache.GlobalTime.Value.ToString("o"));
+            await FileIO.WriteTextAsync(subscriberEmotesFile, newCache.SubscriberString);
+            await FileIO.WriteTextAsync(subscriberTimeFile, newCache.SubscriberTime.Value.ToString("o"));
+            await FileIO.WriteTextAsync(setsEmotesFile, newCache.SetsString);
+            await FileIO.WriteTextAsync(setsTimeFile, newCache.SetsTime.Value.ToString("o"));
+            await FileIO.WriteTextAsync(imagesEmotesFile, newCache.ImagesString);
+            await FileIO.WriteTextAsync(imagesTimeFile, newCache.ImagesTime.Value.ToString("o"));
+            await FileIO.WriteTextAsync(basic0EmotesFile, newCache.Basic0String);
+            await FileIO.WriteTextAsync(basic33EmotesFile, newCache.Basic33String);
+            await FileIO.WriteTextAsync(basic42EmotesFile, newCache.Basic42String);
+            await FileIO.WriteTextAsync(basicTimeFile, newCache.BasicTime.Value.ToString("o"));
         }
     }
 }

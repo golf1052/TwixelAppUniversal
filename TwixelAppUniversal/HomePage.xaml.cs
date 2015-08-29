@@ -200,7 +200,8 @@ namespace TwixelAppUniversal
 
         private void topGamesGridView_ItemClick(object sender, ItemClickEventArgs e)
         {
-
+            GameGridViewBinding gameItem = e.ClickedItem as GameGridViewBinding;
+            Frame.Navigate(typeof(GameStreamsPage), gameItem.game);
         }
     }
 }

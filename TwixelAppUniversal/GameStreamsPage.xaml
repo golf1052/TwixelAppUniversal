@@ -1,0 +1,52 @@
+﻿<Page
+    x:Class="TwixelAppUniversal.GameStreamsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TwixelAppUniversal"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Phone">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="gameChannels.(RelativePanel.Below)" Value="gameLogo"/>
+                        <Setter Target="gameChannels.(RelativePanel.RightOf)" Value=""/>
+                        <Setter Target="gameChannels.(RelativePanel.AlignVerticalCenterWith)" Value=""/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="PC">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="gameChannels.(RelativePanel.Below)" Value=""/>
+                        <Setter Target="gameChannels.(RelativePanel.RightOf)" Value="gameName"/>
+                        <Setter Target="gameChannels.(RelativePanel.AlignVerticalCenterWith)" Value="gameName"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <RelativePanel>
+            <Image x:Name="gameLogo" Width="200" Height="100"/>
+            <TextBlock x:Name="gameName" Text="Hearthstone: Heroes of Warcraft" FontSize="26.667" TextTrimming="CharacterEllipsis" RelativePanel.LeftOf="" RelativePanel.RightOf="gameLogo" RelativePanel.AlignVerticalCenterWith="gameLogo" Padding="0" Margin="0,0,30,0"/>
+            <TextBlock x:Name="gameChannels" TextWrapping="Wrap" Text="9001" FontSize="26.667" RelativePanel.RightOf="" RelativePanel.AlignTopWith="" Margin="20,0,5,0" RelativePanel.Below="gameLogo"/>
+            <Image x:Name="channelsImage" HorizontalAlignment="Left" VerticalAlignment="Top" Source="Assets/channelsDarkIcon.png" Stretch="None" RelativePanel.Below="" RelativePanel.AlignTopWith="" RelativePanel.LeftOf="" RelativePanel.RightOf="gameChannels" RelativePanel.AlignVerticalCenterWith="gameChannels"/>
+            <TextBlock x:Name="gameViewers" Text="9001" FontSize="26.667" RelativePanel.AlignVerticalCenterWith="gameChannels" RelativePanel.RightOf="channelsImage" RelativePanel.Below="" Margin="20,0,5,0" TextTrimming="CharacterEllipsis"/>
+            <Image x:Name="viewersImage" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="None" Source="Assets/viewersDarkIcon.png" RelativePanel.RightOf="gameViewers" RelativePanel.Below="gameLogo" RelativePanel.AlignVerticalCenterWith="gameViewers"/>
+        </RelativePanel>
+        <ScrollViewer x:Name="scrollViewer" Margin="0,0,0,35.667" Grid.Row="1" ViewChanged="scrollViewer_ViewChanged">
+            <GridView x:Name="gameStreamsGridView" VerticalAlignment="Center" ItemTemplate="{StaticResource GameStreamsTemplate}" Loaded="gameStreamsGridView_Loaded" ItemClick="gameStreamsGridView_ItemClick" SelectionMode="None" IsItemClickEnabled="True" HorizontalAlignment="Center" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+        </ScrollViewer>
+
+    </Grid>
+</Page>
