@@ -8,6 +8,44 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Phone">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="weekButton.(RelativePanel.Below)" Value="videosTextBlock"/>
+                        <Setter Target="weekButton.(RelativePanel.RightOf)" Value=""/>
+                        <Setter Target="weekButton.(RelativePanel.AlignVerticalCenterWith)" Value=""/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="PC">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="weekButton.(RelativePanel.Below)" Value=""/>
+                        <Setter Target="weekButton.(RelativePanel.RightOf)" Value="videosTextBlock"/>
+                        <Setter Target="weekButton.(RelativePanel.AlignVerticalCenterWith)" Value="videosTextBlock"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <ProgressBar x:Name="progressBar" Height="10" VerticalAlignment="Top" IsIndeterminate="True"/>
+        <RelativePanel Margin="0">
+            <TextBlock x:Name="videosTextBlock" TextWrapping="Wrap" Text="All Videos" d:LayoutOverrides="Width, Height" FontSize="26.667" Margin="20,20,0,0"/>
+            <RadioButton x:Name="weekButton" Content="Week" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="20,20,0,0" d:LayoutOverrides="Width, LeftPosition, RightPosition" RelativePanel.Below="videosTextBlock" IsChecked="True" Checked="weekButton_Checked"/>
+            <RadioButton x:Name="monthButton" Content="Month" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,20,0,0" d:LayoutOverrides="Width, LeftPosition, RightPosition" RelativePanel.RightOf="weekButton" RelativePanel.AlignVerticalCenterWith="weekButton" Checked="monthButton_Checked"/>
+            <RadioButton x:Name="allTimeButton" Content="All Time" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,20,0,0" d:LayoutOverrides="Width, LeftPosition, RightPosition" RelativePanel.RightOf="monthButton" RelativePanel.AlignVerticalCenterWith="weekButton" Checked="allTimeButton_Checked"/>
+        </RelativePanel>
+        <ScrollViewer x:Name="scrollViewer" Margin="0" Grid.Row="1">
+            <GridView x:Name="videosGridView" HorizontalAlignment="Center" VerticalAlignment="Center" ItemTemplate="{StaticResource VideoTemplate}" Loaded="videosGridView_Loaded" ItemClick="videosGridView_ItemClick" SelectionMode="None" IsItemClickEnabled="True"/>
+        </ScrollViewer>
 
     </Grid>
 </Page>

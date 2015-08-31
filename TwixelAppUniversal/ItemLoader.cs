@@ -64,5 +64,12 @@ namespace TwixelAppUniversal
             currentlyLoading = false;
             HelperMethods.DisableIndeterminateProgressBar(progressBar);
         }
+
+        public void Reset()
+        {
+            Offset = 0;
+            currentlyLoading = false;
+            endOfList = false;
+        }
     }
 }

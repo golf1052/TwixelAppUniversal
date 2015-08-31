@@ -110,6 +110,7 @@
     <Compile Include="Binding Classes\ChatListViewBinding.cs" />
     <Compile Include="Binding Classes\GameGridViewBinding.cs" />
     <Compile Include="Binding Classes\GameStreamsGridViewBinding.cs" />
+    <Compile Include="Binding Classes\VideosGridViewBinding.cs" />
     <Compile Include="FinalConfirmation.xaml.cs">
       <DependentUpon>FinalConfirmation.xaml</DependentUpon>
     </Compile>
@@ -165,6 +166,7 @@
     <Content Include="Assets\Chat\mod-icon.png" />
     <Content Include="Assets\Chat\staff-icon.png" />
     <Content Include="Assets\Chat\turbo-icon.png" />
+    <Content Include="Assets\clockDark.png" />
     <Content Include="Assets\kappa-emote.png" />
     <Content Include="Assets\liveViewersIcon.png" />
     <Content Include="Assets\viewersDarkIcon.png" />
