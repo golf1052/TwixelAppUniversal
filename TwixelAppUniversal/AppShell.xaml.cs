@@ -63,6 +63,10 @@ namespace TwixelAppUniversal
         private void togglePaneButton_Click(object sender, RoutedEventArgs e)
         {
             RootSplitView.IsPaneOpen = !RootSplitView.IsPaneOpen;
+            if (RootSplitView.IsPaneOpen)
+            {
+                searchButton.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void homeButton_Click(object sender, RoutedEventArgs e)
@@ -71,6 +75,11 @@ namespace TwixelAppUniversal
             {
                 AppFrame.Navigate(typeof(HomePage));
             }
+        }
+
+        private void searchButton_Click(object sender, RoutedEventArgs e)
+        {
+            togglePaneButton_Click(sender, e);
         }
 
         private void streamsButton_Click(object sender, RoutedEventArgs e)
@@ -124,6 +133,7 @@ namespace TwixelAppUniversal
                     togglePaneButton.IsChecked = false;
                 }
             }
+            searchButton.Visibility = Visibility.Visible;
         }
 
         private void frame_Navigating(object sender, NavigatingCancelEventArgs e)
@@ -132,22 +142,27 @@ namespace TwixelAppUniversal
             if (e.SourcePageType == typeof(HomePage))
             {
                 homeButton.Background = AppConstants.ThemeColor;
+                searchBox.PlaceholderText = "search for streams";
             }
             else if (e.SourcePageType == typeof(StreamsPage))
             {
                 streamsButton.Background = AppConstants.ThemeColor;
+                searchBox.PlaceholderText = "search for streams";
             }
             else if (e.SourcePageType == typeof(GamesPage))
             {
                 gamesButton.Background = AppConstants.ThemeColor;
+                searchBox.PlaceholderText = "search for games";
             }
             else if (e.SourcePageType == typeof(UserPage))
             {
                 userButton.Background = AppConstants.ThemeColor;
+                searchBox.PlaceholderText = "search for streams";
             }
             else if (e.SourcePageType == typeof(SettingsPage))
             {
                 settingsButton.Background = AppConstants.ThemeColor;
+                searchBox.PlaceholderText = "search for streams";
             }
         }
 

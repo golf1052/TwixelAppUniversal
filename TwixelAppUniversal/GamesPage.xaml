@@ -16,7 +16,7 @@
 
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="All Games" VerticalAlignment="Top" Foreground="Black" FontSize="26.667" Margin="20,20,0,10"/>
         <ScrollViewer x:Name="scrollViewer" Margin="0" Grid.Row="1">
-            <GridView x:Name="gamesGridView" d:LayoutOverrides="TopMargin, BottomMargin" ItemTemplate="{StaticResource GameItemTemplate}" SelectionMode="None" IsItemClickEnabled="True" ItemClick="gamesGridView_ItemClick" Loaded="gamesGridView_Loaded"/>
+            <GridView x:Name="gamesGridView" d:LayoutOverrides="TopMargin, BottomMargin" ItemTemplate="{StaticResource GameItemTemplate}" SelectionMode="None" IsItemClickEnabled="True" ItemClick="gamesGridView_ItemClick" Loaded="gamesGridView_Loaded" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </ScrollViewer>
 
     </Grid>

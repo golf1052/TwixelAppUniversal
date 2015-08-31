@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <SplitView x:Name="RootSplitView" DisplayMode="CompactOverlay" OpenPaneLength="150" PaneBackground="#BFF2F2F2" PaneClosed="RootSplitView_PaneClosed">
+        <SplitView x:Name="RootSplitView" DisplayMode="CompactOverlay" OpenPaneLength="300" PaneBackground="#BFF2F2F2" PaneClosed="RootSplitView_PaneClosed">
             <SplitView.Pane>
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
@@ -22,6 +22,16 @@
                             <SymbolIcon Symbol="Home"/>
                         </Button>
                         <TextBlock x:Name="homeTextBlock" Text="Home" VerticalAlignment="Center" Margin="20,0,0,0" Tapped="homeTextBlock_Tapped"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="searchButton" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="48" Height="48" Click="searchButton_Click">
+                            <SymbolIcon Symbol="Find" />
+                        </Button>
+                        <AutoSuggestBox x:Name="searchBox" VerticalAlignment="Center" Width="280" Margin="10,8" HorizontalAlignment="Center">
+                            <AutoSuggestBox.QueryIcon>
+                                <SymbolIcon Symbol="Find" />
+                            </AutoSuggestBox.QueryIcon>
+                        </AutoSuggestBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Button x:Name="streamsButton" Width="48" Height="48" Click="streamsButton_Click">

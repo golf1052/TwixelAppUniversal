@@ -8,6 +8,16 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ProgressBar x:Name="progressBar" Height="10" VerticalAlignment="Top" IsIndeterminate="True"/>
+
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Live Streams" d:LayoutOverrides="Height" FontSize="26.667" Margin="20,20,0,10"/>
+        <ScrollViewer x:Name="scrollViewer" Margin="0" Grid.Row="1">
+            <GridView x:Name="streamsGridView" d:LayoutOverrides="LeftPosition, RightPosition" ItemTemplate="{StaticResource GameStreamsTemplate}" SelectionMode="None" IsItemClickEnabled="True" ItemClick="streamsGridView_ItemClick" Loaded="streamsGridView_Loaded" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </ScrollViewer>
 
     </Grid>
 </Page>

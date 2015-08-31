@@ -46,7 +46,7 @@
             <TextBlock x:Name="gameViewers" Text="9001" FontSize="26.667" RelativePanel.AlignVerticalCenterWith="gameChannels" RelativePanel.RightOf="channelsImage" RelativePanel.Below="" Margin="20,0,5,0" TextTrimming="CharacterEllipsis"/>
             <Image x:Name="viewersImage" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="None" Source="Assets/viewersDarkIcon.png" RelativePanel.RightOf="gameViewers" RelativePanel.Below="gameLogo" RelativePanel.AlignVerticalCenterWith="gameViewers"/>
         </RelativePanel>
-        <ScrollViewer x:Name="scrollViewer" Margin="0,0,0,35.667" Grid.Row="1">
+        <ScrollViewer x:Name="scrollViewer" Margin="0" Grid.Row="1">
             <GridView x:Name="gameStreamsGridView" VerticalAlignment="Center" ItemTemplate="{StaticResource GameStreamsTemplate}" Loaded="gameStreamsGridView_Loaded" ItemClick="gameStreamsGridView_ItemClick" SelectionMode="None" IsItemClickEnabled="True" HorizontalAlignment="Center" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
         </ScrollViewer>
 
