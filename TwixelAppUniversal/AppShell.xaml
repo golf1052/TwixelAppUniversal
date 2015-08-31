@@ -46,6 +46,12 @@
                         <TextBlock x:Name="gamesTextBlock" Text="Games" VerticalAlignment="Center" Margin="20,0,0,0" Tapped="gamesTextBlock_Tapped"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
+                        <Button x:Name="videosButton" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="48" Height="48" Click="videosButton_Click">
+                            <SymbolIcon Symbol="Video"/>
+                        </Button>
+                        <TextBlock x:Name="videosTextBlock" TextWrapping="Wrap" Text="Videos" Margin="20,0,0,0" VerticalAlignment="Center" Tapped="videosTextBlock_Tapped"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
                         <Button x:Name="userButton" Width="48" Height="48" Click="userButton_Click">
                             <SymbolIcon Symbol="Contact"/>
                         </Button>

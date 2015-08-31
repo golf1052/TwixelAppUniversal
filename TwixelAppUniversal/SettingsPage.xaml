@@ -19,8 +19,5 @@
             </ComboBox>
             <Button x:Name="accountButton" Content="Manage Accounts" Click="accountButton_Click"/>
         </StackPanel>
-        <Button x:Name="backButton" VerticalAlignment="Bottom" HorizontalAlignment="Center" Click="backButton_Click">
-            <SymbolIcon Symbol="Back"/>
-        </Button>
     </Grid>
 </Page>

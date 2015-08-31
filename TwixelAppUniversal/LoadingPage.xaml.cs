@@ -34,6 +34,7 @@ namespace TwixelAppUniversal
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            HelperMethods.DisableBackButton();
             base.OnNavigatedTo(e);
         }
 

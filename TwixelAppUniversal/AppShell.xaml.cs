@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -33,6 +34,14 @@ namespace TwixelAppUniversal
 
             this.Loaded += AppShell_Loaded;
             buttonColor = (SolidColorBrush)homeButton.Background;
+            SystemNavigationManager currentView = SystemNavigationManager.GetForCurrentView();
+            currentView.BackRequested += CurrentView_BackRequested;
+        }
+
+        private void CurrentView_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            AppFrame.GoBack();
+            e.Handled = true;
         }
 
         private void AppShell_Loaded(object sender, RoutedEventArgs e)
@@ -98,6 +107,14 @@ namespace TwixelAppUniversal
             }
         }
 
+        private void videosButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(AppFrame.Content is VideosPage))
+            {
+                AppFrame.Navigate(typeof(VideosPage));
+            }
+        }
+
         private void userButton_Click(object sender, RoutedEventArgs e)
         {
             if (AppConstants.activeUser != null)
@@ -154,6 +171,11 @@ namespace TwixelAppUniversal
                 gamesButton.Background = AppConstants.ThemeColor;
                 searchBox.PlaceholderText = "search for games";
             }
+            else if (e.SourcePageType == typeof(VideosPage))
+            {
+                videosButton.Background = AppConstants.ThemeColor;
+                searchBox.PlaceholderText = "search for streams";
+            }
             else if (e.SourcePageType == typeof(UserPage))
             {
                 userButton.Background = AppConstants.ThemeColor;
@@ -171,6 +193,7 @@ namespace TwixelAppUniversal
             homeButton.Background = buttonColor;
             streamsButton.Background = buttonColor;
             gamesButton.Background = buttonColor;
+            videosButton.Background = buttonColor;
             userButton.Background = buttonColor;
             settingsButton.Background = buttonColor;
         }
@@ -188,6 +211,11 @@ namespace TwixelAppUniversal
         private void gamesTextBlock_Tapped(object sender, TappedRoutedEventArgs e)
         {
             gamesButton_Click(sender, e);
+        }
+
+        private void videosTextBlock_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            videosButton_Click(sender, e);
         }
 
         private void userTextBlock_Tapped(object sender, TappedRoutedEventArgs e)

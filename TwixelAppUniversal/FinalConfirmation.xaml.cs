@@ -36,14 +36,6 @@ namespace TwixelAppUniversal
             this.InitializeComponent();
 
             HelperMethods.HideSplitView();
-            SystemNavigationManager currentView = SystemNavigationManager.GetForCurrentView();
-            currentView.BackRequested += CurrentView_BackRequested;
-        }
-
-        private void CurrentView_BackRequested(object sender, BackRequestedEventArgs e)
-        {
-            Frame.GoBack();
-            e.Handled = true;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -59,13 +51,6 @@ namespace TwixelAppUniversal
             }
             webView.Navigate(authPageUri);
             base.OnNavigatedTo(e);
-        }
-
-        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
-        {
-            SystemNavigationManager currentView = SystemNavigationManager.GetForCurrentView();
-            currentView.BackRequested -= CurrentView_BackRequested;
-            base.OnNavigatingFrom(e);
         }
 
         private async void webView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)

@@ -37,11 +37,6 @@ namespace TwixelAppUniversal
             doneLoading = true;
         }
 
-        private void backButton_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.GoBack();
-        }
-
         private void wifiStreamQualityComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (doneLoading)
