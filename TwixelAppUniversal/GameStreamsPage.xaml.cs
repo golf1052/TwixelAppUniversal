@@ -81,7 +81,15 @@ namespace TwixelAppUniversal
             GameStreamsGridViewBinding streamItem = e.ClickedItem as GameStreamsGridViewBinding;
             List<object> parameters = new List<object>();
             parameters.Add(streamItem.stream);
-            Dictionary<AppConstants.StreamQuality, Uri> qualities = await HelperMethods.RetrieveHlsStream(streamItem.stream.channel.name);
+            Dictionary<AppConstants.StreamQuality, Uri> qualities = null;
+            try
+            {
+                qualities = await HelperMethods.RetrieveHlsStream(streamItem.stream.channel.name);
+            }
+            catch (Exception ex)
+            {
+                await HelperMethods.ShowMessageDialog(string.Format("Looks like {0} is offline. Sorry about that.", streamItem.stream.channel.displayName), string.Format("{0} is offline", streamItem.stream.channel.displayName));
+            }
             parameters.Add(qualities);
             Frame.Navigate(typeof(StreamPage), parameters);
         }
