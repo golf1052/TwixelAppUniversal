@@ -14,9 +14,16 @@
                         <Image Source="{Binding Broadcaster}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <Image Source="{Binding Turbo}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <Image Source="{Binding Subscriber}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock TextWrapping="Wrap" Text="{Binding Username}" Foreground="{Binding Color}" Margin="{Binding UsernamePadding}"/>
+                        <TextBlock TextWrapping="Wrap" Text="{Binding Username}" Foreground="{Binding Color}" Margin="{Binding UsernamePadding}" FontSize="16"/>
                     </StackPanel>
-                    <TextBlock TextWrapping="Wrap" Text="{Binding Message}" />
+                    <ItemsControl ItemsSource="{Binding ChatThings}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <local:WrapPanel Orientation="Horizontal">
+                                </local:WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
                 </StackPanel>
             </Grid>
         </DataTemplate>

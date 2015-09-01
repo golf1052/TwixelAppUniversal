@@ -111,6 +111,7 @@
     <Compile Include="Binding Classes\GameGridViewBinding.cs" />
     <Compile Include="Binding Classes\GameStreamsGridViewBinding.cs" />
     <Compile Include="Binding Classes\VideosGridViewBinding.cs" />
+    <Compile Include="ChatWindow.cs" />
     <Compile Include="FinalConfirmation.xaml.cs">
       <DependentUpon>FinalConfirmation.xaml</DependentUpon>
     </Compile>
@@ -131,6 +132,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OrientedSize.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScopesPage.xaml.cs">
       <DependentUpon>ScopesPage.xaml</DependentUpon>
@@ -151,6 +153,7 @@
     <Compile Include="VideosPage.xaml.cs">
       <DependentUpon>VideosPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WrapPanel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
