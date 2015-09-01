@@ -125,7 +125,9 @@
                     <RowDefinition/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <ListView x:Name="chatListView" HorizontalAlignment="Left" Grid.Column="1" Width="300" ItemTemplate="{StaticResource ChatListViewTemplate}"/>
+                <ScrollViewer x:Name="scrollViewer" Grid.Column="1">
+                    <ListView x:Name="chatListView" Width="300" ItemTemplate="{StaticResource ChatListViewTemplate}" d:LayoutOverrides="LeftPosition, RightPosition"/>
+                </ScrollViewer>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>

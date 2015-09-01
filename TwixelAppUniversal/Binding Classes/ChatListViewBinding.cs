@@ -24,30 +24,135 @@ namespace TwixelAppUniversal
         public ChatListViewBinding(ChatMessage message, string channel)
         {
             ChatThings = new ObservableCollection<UIElement>();
-            if (message.User != null)
+            LoadUser(message.User, channel, message.Username);
+
+            if (message.Emotes == null || message.Emotes.Count == 0)
             {
-                if (message.User.UserType == UserState.UserTypes.Admin)
+                AddText(message.Message);
+            }
+            else
+            {
+                SortedDictionary<long, ChatEmote> sortedEmotes = new SortedDictionary<long, ChatEmote>();
+                foreach (ChatEmote emote in message.Emotes)
+                {
+                    foreach (Tuple<long, long> position in emote.Positions)
+                    {
+                        sortedEmotes.Add(position.Item1, emote);
+                    }
+                }
+                int currentPosition = 0;
+                foreach (KeyValuePair<long, ChatEmote> emote in sortedEmotes)
+                {
+                    AddText(message.Message.Substring(currentPosition, (int)emote.Key - currentPosition));
+                    Emote e = null;
+                    try
+                    {
+                        e = EmoteManager.EmotesById[emote.Value.Id];
+                    }
+                    catch
+                    {
+
+                    }
+                    if (e != null)
+                    {
+                        AddImage(e);
+                    }
+                    else
+                    {
+                        currentPosition = (int)emote.Key;
+                        var position = FindTuple(emote.Value.Positions, emote.Key);
+                        AddText(message.Message.Substring(currentPosition, ((int)position.Item2 + 1) - (int)position.Item1));
+                        currentPosition = (int)position.Item2 + 1;
+                    }
+                }
+                if (currentPosition < message.Message.Length)
+                {
+                    AddText(message.Message.Substring(currentPosition));
+                }
+            }
+        }
+
+        public ChatListViewBinding(UserState user, string channel, string username, string message)
+        {
+            ChatThings = new ObservableCollection<UIElement>();
+            LoadUser(user, channel, username);
+
+            string[] splitMessage = message.Split(' ');
+            if (splitMessage.Length == 1)
+            {
+                Emote emote = null;
+                try
+                {
+                    emote = EmoteManager.EmotesByCode[splitMessage[0]];
+                }
+                catch
+                {
+                    AddText(splitMessage[0]);
+                }
+                if (emote != null)
+                {
+                    AddImage(emote);
+                }
+            }
+            else
+            {
+                string accumulatedString = string.Empty;
+                foreach (string s in splitMessage)
+                {
+                    Emote emote = null;
+                    try
+                    {
+                        emote = EmoteManager.EmotesByCode[s];
+                    }
+                    catch
+                    {
+                        accumulatedString += s + " ";
+                    }
+                    if (emote != null)
+                    {
+                        if (accumulatedString != string.Empty)
+                        {
+                            AddText(accumulatedString);
+                            accumulatedString = string.Empty;
+                        }
+                        AddImage(emote);
+                    }
+                }
+
+                if (accumulatedString != string.Empty)
+                {
+                    AddText(accumulatedString);
+                    accumulatedString = string.Empty;
+                }
+            }
+        }
+
+        private void LoadUser(UserState user, string channel, string defaultUsername)
+        {
+            if (user != null)
+            {
+                if (user.UserType == UserState.UserTypes.Admin)
                 {
                     UserType = "Assets/Chat/admin-icon.png";
                 }
-                else if (message.User.UserType == UserState.UserTypes.GlobalMod)
+                else if (user.UserType == UserState.UserTypes.GlobalMod)
                 {
                     UserType = "Assets/Chat/globalmod-icon.png";
                 }
-                else if (message.User.UserType == UserState.UserTypes.Mod)
+                else if (user.UserType == UserState.UserTypes.Mod)
                 {
                     UserType = "Assets/Chat/mod-icon.png";
                 }
-                else if (message.User.UserType == UserState.UserTypes.Staff)
+                else if (user.UserType == UserState.UserTypes.Staff)
                 {
                     UserType = "Assets/Chat/staff-icon.png";
                 }
-                else if (message.User.UserType == UserState.UserTypes.None)
+                else if (user.UserType == UserState.UserTypes.None)
                 {
                     UserType = null;
                 }
 
-                if (message.Username.ToLower() == channel.ToLower())
+                if (defaultUsername.ToLower() == channel.ToLower())
                 {
                     Broadcaster = "Assets/Chat/broadcaster-icon.png";
                 }
@@ -56,7 +161,7 @@ namespace TwixelAppUniversal
                     Broadcaster = null;
                 }
 
-                if (message.User.Turbo)
+                if (user.Turbo)
                 {
                     Turbo = "Assets/Chat/turbo-icon.png";
                 }
@@ -65,7 +170,7 @@ namespace TwixelAppUniversal
                     Turbo = null;
                 }
 
-                if (message.User.Subscriber)
+                if (user.Subscriber)
                 {
                     Subscriber = "https:" + EmoteManager.ChannelsByName[channel].Badge;
                 }
@@ -83,22 +188,22 @@ namespace TwixelAppUniversal
                     UsernamePadding = new Thickness(5, 0, 0, 0);
                 }
 
-                if (string.IsNullOrEmpty(message.User.DisplayName))
+                if (string.IsNullOrEmpty(user.DisplayName))
                 {
-                    Username = message.Username;
+                    Username = defaultUsername;
                 }
                 else
                 {
-                    Username = message.User.DisplayName;
+                    Username = user.DisplayName;
                 }
 
-                if (string.IsNullOrEmpty(message.User.Color))
+                if (string.IsNullOrEmpty(user.Color))
                 {
                     Color = "#000000";
                 }
                 else
                 {
-                    Color = message.User.Color;
+                    Color = user.Color;
                 }
             }
             else
@@ -107,49 +212,8 @@ namespace TwixelAppUniversal
                 Broadcaster = null;
                 Turbo = null;
                 Subscriber = null;
-                Username = message.Username;
+                Username = defaultUsername;
                 Color = "#000000";
-            }
-
-            if (message.Emotes == null || message.Emotes.Count == 0)
-            {
-                TextBlock textBlockMessage = new TextBlock();
-                textBlockMessage.Text = message.Message;
-                textBlockMessage.TextWrapping = TextWrapping.WrapWholeWords;
-                ChatThings.Add(textBlockMessage);
-            }
-            else
-            {
-                SortedDictionary<long, ChatEmote> sortedEmotes = new SortedDictionary<long, ChatEmote>();
-                foreach (ChatEmote emote in message.Emotes)
-                {
-                    foreach (Tuple<long, long> position in emote.Positions)
-                    {
-                        sortedEmotes.Add(position.Item1, emote);
-                    }
-                }
-                int currentPosition = 0;
-                foreach (KeyValuePair<long, ChatEmote> emote in sortedEmotes)
-                {
-                    TextBlock textBlockMessage = new TextBlock();
-                    textBlockMessage.Text = message.Message.Substring(currentPosition, (int)emote.Key - currentPosition);
-                    textBlockMessage.TextWrapping = TextWrapping.WrapWholeWords;
-                    ChatThings.Add(textBlockMessage);
-                    Image image = new Image();
-                    BitmapImage bitmapImage = new BitmapImage(EmoteManager.EmotesById[emote.Value.Id].Small);
-                    image.Source = bitmapImage;
-                    image.Stretch = Windows.UI.Xaml.Media.Stretch.None;
-                    ChatThings.Add(image);
-                    var position = FindTuple(emote.Value.Positions, emote.Key);
-                    currentPosition = (int)position.Item2 + 1;
-                }
-                if (currentPosition < message.Message.Length)
-                {
-                    TextBlock textBlockMessage = new TextBlock();
-                    textBlockMessage.Text = message.Message.Substring(currentPosition);
-                    textBlockMessage.TextWrapping = TextWrapping.WrapWholeWords;
-                    ChatThings.Add(textBlockMessage);
-                }
             }
         }
 
@@ -163,6 +227,26 @@ namespace TwixelAppUniversal
                 }
             }
             throw new Exception("Couldn't find tuple");
+        }
+
+        private void AddText(string str)
+        {
+            TextBlock textBlock = new TextBlock();
+            textBlock.Text = str;
+            textBlock.TextWrapping = TextWrapping.WrapWholeWords;
+            ChatThings.Add(textBlock);
+        }
+
+        private void AddImage(Emote emote)
+        {
+            if (emote != null)
+            {
+                Image image = new Image();
+                BitmapImage bitmapImage = new BitmapImage(emote.Small);
+                image.Source = bitmapImage;
+                image.Stretch = Windows.UI.Xaml.Media.Stretch.None;
+                ChatThings.Add(image);
+            }
         }
     }
 }

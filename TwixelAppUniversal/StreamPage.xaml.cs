@@ -33,7 +33,7 @@ namespace TwixelAppUniversal
         Dictionary<AppConstants.StreamQuality, Uri> qualities;
         bool showBars;
 
-        ChatClient chatClient;
+        ChatWindow chatWindow;
 
         ObservableCollection<ChatListViewBinding> messages;
 
@@ -42,18 +42,8 @@ namespace TwixelAppUniversal
             this.InitializeComponent();
 
             showBars = true;
-            chatClient = new ChatClient();
-            chatClient.MessageRecieved += ChatClient_MessageRecieved;
             messages = new ObservableCollection<ChatListViewBinding>();
             chatListView.ItemsSource = messages;
-        }
-
-        private async void ChatClient_MessageRecieved(object sender, MessageRecievedEventArgs e)
-        {
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-            {
-                messages.Add(new ChatListViewBinding(e.ChatMessage, chatClient.Channel.ChannelName));
-            });
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -62,8 +52,8 @@ namespace TwixelAppUniversal
             stream = (Stream)parameters[0];
             qualities = (Dictionary<AppConstants.StreamQuality, Uri>)parameters[1];
 
-            await chatClient.Connect("golf1052", Secrets.AccessToken);
-            await chatClient.JoinChannel(stream.channel.name);
+            chatWindow = new ChatWindow(Dispatcher, stream.channel.name, chatListView, scrollViewer, chatBox, sendButton);
+            await chatWindow.LoadChatWindow();
             streamerImage.Fill = new ImageBrush() { ImageSource = new BitmapImage(stream.channel.logo) };
             streamerNameTextBlock.Text = stream.channel.displayName;
             streamDescriptionTextBlock.Text = stream.channel.status;
