@@ -248,10 +248,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Documents\GitHub\Flurl\Flurl\Flurl.csproj">
-      <Project>{70a34167-759e-4902-82e0-e6a84c2ce46f}</Project>
-      <Name>Flurl</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\TwixelChat\TwixelChat.Universal\TwixelChat.Universal\TwixelChat.Universal.csproj">
       <Project>{2a05aec0-f10f-4ac8-8829-3a9b67065467}</Project>
       <Name>TwixelChat.Universal</Name>
@@ -268,6 +264,12 @@
       <Project>{dfd0db77-dbc7-4b79-8747-f9caf6274dbe}</Project>
       <Name>Twixel</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Flurl, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Twixel\Twixel\Custom Packages\Flurl.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
