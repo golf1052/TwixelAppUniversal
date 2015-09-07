@@ -8,6 +8,162 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Phone">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="stack.HorizontalAlignment" Value="Center"/>
+                        <Setter Target="streamGrid.(Grid.Row)" Value="0"/>
+                        <Setter Target="streamGrid.(Grid.Column)" Value="0"/>
+                        <Setter Target="streamGrid.(Grid.RowSpan)" Value="1"/>
+                        <Setter Target="streamGrid.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="channelChatGrid.(Grid.Row)" Value="1"/>
+                        <Setter Target="channelChatGrid.(Grid.Column)" Value="0"/>
+                        <Setter Target="channelChatGrid.(Grid.RowSpan)" Value="1"/>
+                        <Setter Target="channelChatGrid.(Grid.ColumnSpan)" Value="2"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="PC">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="stack.HorizontalAlignment" Value="Stretch"/>
+                        <Setter Target="streamGrid.(Grid.Row)" Value="0"/>
+                        <Setter Target="streamGrid.(Grid.Column)" Value="0"/>
+                        <Setter Target="streamGrid.(Grid.RowSpan)" Value="2"/>
+                        <Setter Target="streamGrid.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="channelChatGrid.(Grid.Row)" Value="0"/>
+                        <Setter Target="channelChatGrid.(Grid.Column)" Value="1"/>
+                        <Setter Target="channelChatGrid.(Grid.RowSpan)" Value="2"/>
+                        <Setter Target="channelChatGrid.(Grid.ColumnSpan)" Value="1"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <ScrollViewer>
+            <StackPanel x:Name="stack" HorizontalAlignment="Stretch" VerticalAlignment="Top" d:LayoutOverrides="TopMargin, BottomMargin">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid x:Name="streamGrid" HorizontalAlignment="Center" Margin="0" d:LayoutOverrides="Height, TopPosition, BottomPosition" Grid.ColumnSpan="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <MediaElement x:Name="streamPlayer" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" d:LayoutOverrides="Width, Height"/>
+                        <TextBlock x:Name="streamOfflineTextBlock" HorizontalAlignment="Center" TextWrapping="Wrap" Text="stream offline" VerticalAlignment="Center" Foreground="{StaticResource CornflowerBlue}" FontSize="48" Visibility="Collapsed"/>
+                        <StackPanel Orientation="Horizontal" Margin="0" d:LayoutOverrides="Width, Height, LeftPosition, RightPosition, TopPosition, BottomPosition" Grid.Row="1" HorizontalAlignment="Center">
+                            <AppBarButton x:Name="playPauseButton" HorizontalAlignment="Stretch" Icon="Play" Label="Play" VerticalAlignment="Stretch" Click="playPauseButton_Click"/>
+                            <AppBarButton x:Name="channelButton" HorizontalAlignment="Stretch" Icon="Contact" Label="Channel" VerticalAlignment="Stretch"/>
+                            <AppBarButton x:Name="volumeButton" HorizontalAlignment="Stretch" Icon="Volume" Label="Volume" VerticalAlignment="Stretch">
+                                <AppBarButton.Flyout>
+                                    <Flyout>
+                                        <StackPanel>
+                                            <Button x:Name="muteButton" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Margin="0,0,0,10">
+                                                <SymbolIcon Symbol="Volume"/>
+                                            </Button>
+                                            <Slider x:Name="volumeSlider" Orientation="Vertical" LargeChange="5" Value="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Flyout>
+                                </AppBarButton.Flyout>
+                            </AppBarButton>
+                        </StackPanel>
+                    </Grid>
+                    <StackPanel x:Name="channelChatGrid" Margin="0" d:LayoutOverrides="Width, Height, TopPosition, BottomPosition" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBox x:Name="statusTextBox" TextWrapping="Wrap" Text="" PlaceholderText="channel status" Margin="0,0,0,5" Width="300" HorizontalAlignment="Left"/>
+                            <StackPanel d:LayoutOverrides="LeftPosition, RightPosition" Orientation="Horizontal">
+                                <TextBox x:Name="gameTextBox" TextWrapping="Wrap" Text="" PlaceholderText="current game" Margin="0" d:LayoutOverrides="TopPosition, BottomPosition" Width="200"/>
+                                <Button x:Name="updateChannelButton" Content="Update" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" d:LayoutOverrides="LeftPosition, RightPosition" Width="95" Margin="5,0,0,0" Background="{StaticResource CornflowerBlue}"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <Grid d:LayoutOverrides="LeftPosition, RightPosition">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <ListView x:Name="chatListView" Width="300" Height="300"/>
+                            <Grid Grid.Row="1" Width="300">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="chatBox"/>
+                                <Button x:Name="sendButton" Grid.Column="1" Background="{StaticResource CornflowerBlue}">
+                                    <SymbolIcon Symbol="Send"/>
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+                <Grid d:LayoutOverrides="TopPosition, BottomPosition">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock TextWrapping="Wrap" Text="Followed Streams Online" FontSize="26.667" Margin="10,0,0,0" VerticalAlignment="Top" d:LayoutOverrides="Width"/>
+                    <ScrollViewer x:Name="followedStreamsScrollViewer" Margin="0" Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                        <ListView x:Name="followedStreamsListView" Margin="0" ItemTemplate="{StaticResource GameStreamsTemplate}" SelectionMode="None" IsItemClickEnabled="True" ItemsPanel="{StaticResource HorizontalItemsPanel}" Loaded="followedStreamsListView_Loaded" ItemClick="followedStreamsListView_ItemClick" Height="280"/>
+                    </ScrollViewer>
+                    <ProgressBar x:Name="followedStreamsProgressBar" Height="10" VerticalAlignment="Top" Grid.Row="1" IsIndeterminate="True"/>
+                </Grid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Followed Channels" d:LayoutOverrides="Height" FontSize="26.667" Margin="10,0,0,0"/>
+                    <ScrollViewer x:Name="followedChannelsScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Grid.Row="1">
+                        <ListView x:Name="followedChannelsListView" Margin="0" ItemTemplate="{StaticResource ChannelProfileListItemTemplate}" SelectionMode="None" IsItemClickEnabled="True" Loaded="followedChannelsListView_Loaded" ItemClick="followedChannelsListView_ItemClick" ItemsPanel="{StaticResource HorizontalItemsPanel}" d:LayoutOverrides="VerticalAlignment"/>
+                    </ScrollViewer>
+                    <ProgressBar x:Name="followedChannelsProgressBar" Height="10" VerticalAlignment="Top" Grid.Row="1" IsIndeterminate="True"/>
+                </Grid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Blocked Users" d:LayoutOverrides="Height" FontSize="26.667" Margin="10,0,0,0"/>
+                    <ScrollViewer x:Name="blockedUsersScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Grid.Row="1">
+                        <ListView x:Name="blockedUsersListView" SelectionMode="None" IsItemClickEnabled="True" ItemsPanel="{StaticResource HorizontalItemsPanel}" ItemTemplate="{StaticResource ChannelProfileListItemTemplate}" Loaded="blockedUsersListView_Loaded" ItemClick="blockedUsersListView_ItemClick"/>
+                    </ScrollViewer>
+                    <ProgressBar x:Name="blockedUsersProgressBar" Height="10" VerticalAlignment="Top" Grid.Row="1" IsIndeterminate="True"/>
+                </Grid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Channel Editors" d:LayoutOverrides="Height" FontSize="26.667" Margin="10,0,0,0"/>
+                    <ScrollViewer x:Name="channelEdtorsScrollViewer" Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                        <ListView x:Name="channelEditorsListView" IsItemClickEnabled="True" SelectionMode="None" ItemTemplate="{StaticResource ChannelProfileListItemTemplate}" ItemsPanel="{StaticResource HorizontalItemsPanel}" Loaded="channelEditorsListView_Loaded" ItemClick="channelEditorsListView_ItemClick"/>
+                    </ScrollViewer>
+                    <ProgressBar x:Name="channelEditorsProgressBar" Height="10" VerticalAlignment="Top" Grid.Row="1" Visibility="Collapsed"/>
+                </Grid>
+                <StackPanel HorizontalAlignment="Left">
+                    <TextBlock TextWrapping="Wrap" Text="Stream Key" FontSize="26.667" Margin="10,0,0,10"/>
+                    <TextBox x:Name="streamKeyTextBox" TextWrapping="Wrap" Text="live_12345678_abcdefghijklmnopqrstuvwxyz1234" d:LayoutOverrides="TopPosition, BottomPosition" IsReadOnly="True" Margin="0,0,0,10" Visibility="Collapsed"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="resetKeyButton" Content="Reset Key" VerticalAlignment="Stretch" d:LayoutOverrides="Height" HorizontalAlignment="Stretch" Margin="0,0,5,0" Click="resetKeyButton_Click"/>
+                        <Button x:Name="showHideKeyButton" Content="Show Key" VerticalAlignment="Stretch" d:LayoutOverrides="Height" Grid.Column="1" HorizontalAlignment="Stretch" Margin="5,0,0,0" Click="showHideKeyButton_Click"/>
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
 
     </Grid>
 </Page>

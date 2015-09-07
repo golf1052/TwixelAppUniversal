@@ -202,5 +202,15 @@ namespace TwixelAppUniversal
             progressBar.IsIndeterminate = false;
             progressBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
+
+        public static async Task GoToStreamPage(ItemClickEventArgs e, Frame frame)
+        {
+            GameStreamsGridViewBinding streamItem = e.ClickedItem as GameStreamsGridViewBinding;
+            List<object> parameters = new List<object>();
+            parameters.Add(streamItem.stream);
+            Dictionary<AppConstants.StreamQuality, Uri> qualities = await RetrieveHlsStream(streamItem.stream.channel.name);
+            parameters.Add(qualities);
+            frame.Navigate(typeof(StreamPage), parameters);
+        }
     }
 }

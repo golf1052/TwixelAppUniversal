@@ -58,12 +58,7 @@ namespace TwixelAppUniversal
 
         private async void streamsGridView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            GameStreamsGridViewBinding streamItem = e.ClickedItem as GameStreamsGridViewBinding;
-            List<object> parameters = new List<object>();
-            parameters.Add(streamItem.stream);
-            Dictionary<AppConstants.StreamQuality, Uri> qualities = await HelperMethods.RetrieveHlsStream(streamItem.stream.channel.name);
-            parameters.Add(qualities);
-            Frame.Navigate(typeof(StreamPage), parameters);
+            await HelperMethods.GoToStreamPage(e, Frame);
         }
 
         private void streamsGridView_Loaded(object sender, RoutedEventArgs e)

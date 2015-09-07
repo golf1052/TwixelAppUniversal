@@ -127,5 +127,16 @@
                 <TextBlock Margin="0" Grid.Row="1" Text="{Binding Title}" FontSize="10.667" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="5" Height="25"/>
             </Grid>
         </DataTemplate>
+        <ItemsPanelTemplate x:Key="HorizontalItemsPanel">
+            <ItemsStackPanel Orientation="Horizontal" />
+        </ItemsPanelTemplate>
+        <DataTemplate x:Key="ChannelProfileListItemTemplate">
+            <Grid>
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="100" Height="100" Source="{Binding ProfileImage}"/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
     </Application.Resources>
 </Application>
