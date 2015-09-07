@@ -112,6 +112,9 @@
     <Compile Include="Binding Classes\GameGridViewBinding.cs" />
     <Compile Include="Binding Classes\GameStreamsGridViewBinding.cs" />
     <Compile Include="Binding Classes\VideosGridViewBinding.cs" />
+    <Compile Include="ChannelPage.xaml.cs">
+      <DependentUpon>ChannelPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ChatWindow.cs" />
     <Compile Include="FinalConfirmation.xaml.cs">
       <DependentUpon>FinalConfirmation.xaml</DependentUpon>
@@ -163,6 +166,7 @@
     <None Include="TwixelAppUniversal_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\ChannelBannerPlaceholder.png" />
     <Content Include="Assets\channelsDarkIcon.png" />
     <Content Include="Assets\Chat\admin-icon.png" />
     <Content Include="Assets\Chat\broadcaster-icon.png" />
@@ -199,6 +203,10 @@
     <Page Include="AppShell.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ChannelPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="FinalConfirmation.xaml">
       <SubType>Designer</SubType>

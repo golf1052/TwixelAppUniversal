@@ -192,6 +192,8 @@ namespace TwixelAppUniversal
 
         private void followedChannelsListView_ItemClick(object sender, ItemClickEventArgs e)
         {
+            ChannelProfileListViewBinding binding = e.ClickedItem as ChannelProfileListViewBinding;
+            Frame.Navigate(typeof(ChannelPage), binding.Channel);
         }
 
         private void blockedUsersListView_Loaded(object sender, RoutedEventArgs e)
@@ -201,7 +203,8 @@ namespace TwixelAppUniversal
 
         private void blockedUsersListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-
+            ChannelProfileListViewBinding binding = e.ClickedItem as ChannelProfileListViewBinding;
+            Frame.Navigate(typeof(ChannelPage), binding.Channel);
         }
 
         private void channelEditorsListView_Loaded(object sender, RoutedEventArgs e)
@@ -211,7 +214,8 @@ namespace TwixelAppUniversal
 
         private void channelEditorsListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-
+            ChannelProfileListViewBinding binding = e.ClickedItem as ChannelProfileListViewBinding;
+            Frame.Navigate(typeof(ChannelPage), binding.Channel);
         }
 
         private async void resetKeyButton_Click(object sender, RoutedEventArgs e)
