@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using TwixelAPI;
@@ -8,6 +9,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using System.Threading.Tasks;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -28,6 +30,23 @@ namespace TwixelAppUniversal
 
         ObservableCollection<ChatListViewBinding> messages;
 
+        private bool VideoPlaying
+        {
+            get
+            {
+                if (streamElement != null)
+                {
+                    if (streamElement.CurrentState != MediaElementState.Paused &&
+                        streamElement.CurrentState != MediaElementState.Stopped &&
+                        streamElement.CurrentState != MediaElementState.Closed)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
         public StreamPage()
         {
             this.InitializeComponent();
@@ -39,6 +58,7 @@ namespace TwixelAppUniversal
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
+            playPauseButton.IsEnabled = false;
             List<object> parameters = (List<object>)e.Parameter;
             stream = (Stream)parameters[0];
             qualities = (Dictionary<AppConstants.StreamQuality, Uri>)parameters[1];
@@ -47,30 +67,15 @@ namespace TwixelAppUniversal
             chatWindow = new ChatWindow(Dispatcher, stream.channel.name, chatListView, scrollViewer, chatBox, sendButton);
             await chatWindow.LoadChatWindow();
             streamerImage.Fill = new ImageBrush() { ImageSource = new BitmapImage(stream.channel.logo) };
-            streamerNameTextBlock.Text = stream.channel.displayName;
-            streamDescriptionTextBlock.Text = stream.channel.status;
-            gameNameTextBlock.Text = stream.game;
-            if (stream.viewers.HasValue)
-            {
-                streamViewersTextBlock.Text = stream.viewers.Value.ToString();
-            }
+            await ResetStatus();
             foreach (KeyValuePair<AppConstants.StreamQuality, Uri> quality in qualities)
             {
                 ComboBoxItem item = new ComboBoxItem();
                 item.Content = HelperMethods.GetStreamQualityString(quality.Key);
                 streamQualitiesComboBox.Items.Add(item);
             }
-            if (qualities.ContainsKey(AppConstants.WifiStreamQuality))
-            {
-                streamElement.Source = qualities[AppConstants.WifiStreamQuality];
-                SetQualityComboBox(AppConstants.WifiStreamQuality, streamQualitiesComboBox);
-            }
-            else
-            {
-                streamElement.Source = qualities[AppConstants.StreamQuality.Chunked];
-                SetQualityComboBox(AppConstants.StreamQuality.Chunked, streamQualitiesComboBox);
-            }
-            streamElement.Play();
+            await PlayStream();
+            SetQualityComboBox(qualities.First(u => u.Value == streamElement.Source).Key, streamQualitiesComboBox);
 
             if (AppConstants.activeUser != null)
             {
@@ -119,7 +124,7 @@ namespace TwixelAppUniversal
             doneLoading = true;
         }
 
-        private void streamElement_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void streamElement_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (showBars)
             {
@@ -132,6 +137,7 @@ namespace TwixelAppUniversal
             else
             {
                 ShowBarsAnimation.Begin();
+                await ResetStatus();
                 AppConstants.RootSplitView.DisplayMode = SplitViewDisplayMode.CompactOverlay;
                 topBar.Visibility = Visibility.Visible;
                 bottomBar.Visibility = Visibility.Visible;
@@ -194,6 +200,58 @@ namespace TwixelAppUniversal
                 await AppConstants.activeUser.UnfollowChannel(stream.channel.name);
                 followButton.Label = "Follow";
                 ((SymbolIcon)followButton.Icon).Symbol = Symbol.Add;
+            }
+        }
+
+        private async void playPauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (VideoPlaying)
+            {
+                streamElement.Stop();
+                playPauseButton.Label = "Play";
+                ((SymbolIcon)playPauseButton.Icon).Symbol = Symbol.Play;
+            }
+            else
+            {
+                playPauseButton.Label = "Stop";
+                ((SymbolIcon)playPauseButton.Icon).Symbol = Symbol.Stop;
+                await PlayStream();
+            }
+        }
+
+        private async Task PlayStream()
+        {
+            try
+            {
+                qualities = await HelperMethods.RetrieveHlsStream(stream.channel.name);
+            }
+            catch
+            {
+                streamOfflineTextBlock.Visibility = Visibility.Visible;
+                playPauseButton.IsEnabled = false;
+            }
+            streamElement.Source = await HelperMethods.GetPreferredQuality(qualities);
+            streamElement.Play();
+            playPauseButton.IsEnabled = true;
+        }
+
+        private async Task ResetStatus()
+        {
+            try
+            {
+                stream = await AppConstants.Twixel.RetrieveStream(stream.channel.name);
+            }
+            catch (TwixelException ex)
+            {
+                await HelperMethods.ShowErrorDialog(ex);
+                return;
+            }
+            streamerNameTextBlock.Text = stream.channel.displayName;
+            streamDescriptionTextBlock.Text = stream.channel.status;
+            gameNameTextBlock.Text = stream.game;
+            if (stream.viewers.HasValue)
+            {
+                streamViewersTextBlock.Text = stream.viewers.Value.ToString();
             }
         }
     }

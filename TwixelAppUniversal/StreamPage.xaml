@@ -150,13 +150,14 @@
                     <AppBarButton x:Name="followButton" HorizontalAlignment="Stretch" Icon="Add" Label="Follow" VerticalAlignment="Stretch" d:LayoutOverrides="Width" Click="followButton_Click"/>
                 </StackPanel>
             </Grid>
+            <TextBlock x:Name="streamOfflineTextBlock" HorizontalAlignment="Center" TextWrapping="Wrap" Text="stream offline" VerticalAlignment="Center" Grid.Row="1" FontSize="48" Foreground="{StaticResource CornflowerBlue}" Visibility="Collapsed"/>
             <MediaElement x:Name="streamElement" Tapped="streamElement_Tapped" Grid.Row="1"/>
             <Grid x:Name="bottomBar" RenderTransformOrigin="0.5,0.5" Margin="0" Grid.Row="2">
                 <Grid.RenderTransform>
                     <CompositeTransform/>
                 </Grid.RenderTransform>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <AppBarButton x:Name="playPauseButton" HorizontalAlignment="Stretch" Icon="Stop" Label="Pause" VerticalAlignment="Stretch" d:LayoutOverrides="Width"/>
+                    <AppBarButton x:Name="playPauseButton" HorizontalAlignment="Stretch" Icon="Stop" Label="Stop" VerticalAlignment="Stretch" d:LayoutOverrides="Width" Click="playPauseButton_Click"/>
                     <ComboBox x:Name="streamQualitiesComboBox" VerticalAlignment="Center" Width="120" SelectionChanged="streamQualitiesComboBox_SelectionChanged"/>
                     <AppBarButton x:Name="volumeButton" HorizontalAlignment="Stretch" Icon="Volume" Label="Volume" VerticalAlignment="Stretch" d:LayoutOverrides="Width">
                         <AppBarButton.Flyout>
