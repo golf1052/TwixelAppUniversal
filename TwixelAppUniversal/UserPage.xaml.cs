@@ -161,11 +161,11 @@ namespace TwixelAppUniversal
                 qualities = null;
                 streamOfflineTextBlock.Visibility = Visibility.Visible;
                 ((SymbolIcon)playPauseButton.Icon).Symbol = Symbol.Play;
+                playPauseButton.IsEnabled = false;
                 await HelperMethods.ShowMessageDialog("Looks like you're not streaming currently.", "Stream offline");
             }
             if (qualities != null)
             {
-                //stream = await AppConstants.Twixel.RetrieveStream(channel.name);
                 streamPlayer.Source = qualities[AppConstants.StreamQuality.Chunked];
                 ((SymbolIcon)playPauseButton.Icon).Symbol = Symbol.Stop;
                 videoPlaying = true;
@@ -259,6 +259,11 @@ namespace TwixelAppUniversal
                 showHideKeyButton.Content = "Show Key";
                 streamKeyTextBox.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void channelButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(ChannelPage), channel);
         }
     }
 }

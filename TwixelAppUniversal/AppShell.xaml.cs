@@ -40,10 +40,10 @@ namespace TwixelAppUniversal
 
         private void CurrentView_BackRequested(object sender, BackRequestedEventArgs e)
         {
-            if (Frame.BackStack.Count > 0)
+            if (AppFrame.BackStack.Count > 0)
             {
-                if (Frame.BackStack[0].SourcePageType == typeof(LoadingPage) ||
-                    Frame.BackStack[0].SourcePageType == typeof(FinalConfirmation))
+                if (AppFrame.BackStack[AppFrame.BackStack.Count - 1].SourcePageType == typeof(LoadingPage) ||
+                    AppFrame.BackStack[AppFrame.BackStack.Count - 1].SourcePageType == typeof(FinalConfirmation))
                 {
                     // Don't go back
                 }

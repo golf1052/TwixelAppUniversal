@@ -63,8 +63,8 @@
                         <MediaElement x:Name="streamPlayer" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" d:LayoutOverrides="Width, Height"/>
                         <TextBlock x:Name="streamOfflineTextBlock" HorizontalAlignment="Center" TextWrapping="Wrap" Text="stream offline" VerticalAlignment="Center" Foreground="{StaticResource CornflowerBlue}" FontSize="48" Visibility="Collapsed"/>
                         <StackPanel Orientation="Horizontal" Margin="0" d:LayoutOverrides="Width, Height, LeftPosition, RightPosition, TopPosition, BottomPosition" Grid.Row="1" HorizontalAlignment="Center">
-                            <AppBarButton x:Name="playPauseButton" HorizontalAlignment="Stretch" Icon="Play" Label="Play" VerticalAlignment="Stretch" Click="playPauseButton_Click"/>
-                            <AppBarButton x:Name="channelButton" HorizontalAlignment="Stretch" Icon="Contact" Label="Channel" VerticalAlignment="Stretch"/>
+                            <AppBarButton x:Name="playPauseButton" HorizontalAlignment="Stretch" Icon="Stop" Label="Stop" VerticalAlignment="Stretch" Click="playPauseButton_Click"/>
+                            <AppBarButton x:Name="channelButton" HorizontalAlignment="Stretch" Icon="Contact" Label="Channel" VerticalAlignment="Stretch" Click="channelButton_Click"/>
                             <AppBarButton x:Name="volumeButton" HorizontalAlignment="Stretch" Icon="Volume" Label="Volume" VerticalAlignment="Stretch">
                                 <AppBarButton.Flyout>
                                     <Flyout>
