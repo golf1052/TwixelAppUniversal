@@ -28,6 +28,22 @@ namespace TwixelAppUniversal
             Chunked
         }
 
+        public enum NetworkConnectionType
+        {
+            /// <summary>
+            /// No connection
+            /// </summary>
+            None,
+            /// <summary>
+            /// Cellular mobile connection
+            /// </summary>
+            Cellular,
+            /// <summary>
+            /// Wifi/Ethernet connection
+            /// </summary>
+            WiFi
+        }
+
         public static StreamQuality WifiStreamQuality { get; set; }
         public static StreamQuality CellStreamQuality { get; set; }
 

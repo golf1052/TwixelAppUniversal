@@ -40,7 +40,18 @@ namespace TwixelAppUniversal
 
         private void CurrentView_BackRequested(object sender, BackRequestedEventArgs e)
         {
-            AppFrame.GoBack();
+            if (Frame.BackStack.Count > 0)
+            {
+                if (Frame.BackStack[0].SourcePageType == typeof(LoadingPage) ||
+                    Frame.BackStack[0].SourcePageType == typeof(FinalConfirmation))
+                {
+                    // Don't go back
+                }
+                else
+                {
+                    AppFrame.GoBack();
+                }
+            }
             e.Handled = true;
         }
 
@@ -52,11 +63,6 @@ namespace TwixelAppUniversal
 
         private void AppFrame_Navigating(object sender, NavigatingCancelEventArgs e)
         {
-            //var backStack = AppFrame.BackStack;
-            //foreach (var frame in backStack)
-            //{
-            //    System.Diagnostics.Debug.WriteLine(frame.SourcePageType);
-            //}
             HelperMethods.EnableBackButton();
             HelperMethods.ShowSplitView();
             if (AppConstants.activeUser == null)

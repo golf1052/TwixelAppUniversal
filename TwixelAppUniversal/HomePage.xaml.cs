@@ -2,17 +2,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using TwixelAPI;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using TwixelAPI.Constants;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
@@ -51,7 +44,14 @@ namespace TwixelAppUniversal
                 }
             }
 
-            streams = await AppConstants.Twixel.RetrieveFeaturedStreams(0, 10);
+            try
+            {
+                streams = await AppConstants.Twixel.RetrieveFeaturedStreams(0, 10);
+            }
+            catch (TwixelException ex)
+            {
+                await HelperMethods.ShowErrorDialog(ex);
+            }
             foreach (FeaturedStream stream in streams)
             {
                 stream.CleanTextString();
@@ -74,11 +74,22 @@ namespace TwixelAppUniversal
                     qualities.Add(q);
                 }
             }
-            SetUpFeaturedStream();
-            playButton.IsEnabled = true;
-            nextButton.IsEnabled = true;
+            if (streams.Count > 0)
+            {
+                SetUpFeaturedStream();
+                playButton.IsEnabled = true;
+                nextButton.IsEnabled = true;
+            }
 
-            Total<List<Game>> topGames = await AppConstants.Twixel.RetrieveTopGames(0, 10);
+            Total<List<Game>> topGames = new Total<List<Game>>();
+            try
+            {
+                topGames = await AppConstants.Twixel.RetrieveTopGames(0, 10);
+            }
+            catch (TwixelException ex)
+            {
+                await HelperMethods.ShowErrorDialog(ex);
+            }
             foreach (Game game in topGames.wrapped)
             {
                 topGamesCollection.Add(new GameGridViewBinding(game));
@@ -117,7 +128,7 @@ namespace TwixelAppUniversal
             Frame.Navigate(typeof(StreamPage), parameters);
         }
 
-        private void playButton_Click(object sender, RoutedEventArgs e)
+        private async void playButton_Click(object sender, RoutedEventArgs e)
         {
             if (featuredStreamMediaElement.CurrentState != MediaElementState.Paused &&
                 featuredStreamMediaElement.CurrentState != MediaElementState.Stopped &&
@@ -136,14 +147,7 @@ namespace TwixelAppUniversal
             {
                 streamPreviewImage.Source = null;
                 var selectedQuality = qualities[selectedStreamIndex];
-                if (selectedQuality.ContainsKey(AppConstants.StreamQuality.Mobile))
-                {
-                    featuredStreamMediaElement.Source = selectedQuality[AppConstants.StreamQuality.Mobile];
-                }
-                else
-                {
-                    featuredStreamMediaElement.Source = selectedQuality[AppConstants.StreamQuality.Chunked];
-                }
+                featuredStreamMediaElement.Source = await HelperMethods.GetPreferredQuality(selectedQuality);
                 featuredStreamMediaElement.Play();
                 playPauseIcon.Symbol = Symbol.Stop;
             }
@@ -173,6 +177,7 @@ namespace TwixelAppUniversal
 
         private void SetUpFeaturedStream()
         {
+            featuredStreamMediaElement.Source = null;
             streamButton.IsEnabled = true;
             playButton.IsEnabled = true;
             streamOfflineTextBlock.Visibility = Visibility.Collapsed;
