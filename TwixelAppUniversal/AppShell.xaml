@@ -35,13 +35,13 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Button x:Name="streamsButton" Width="48" Height="48" Click="streamsButton_Click">
-                            <SymbolIcon Symbol="Video"/>
+                            <Image Source="Assets/channelsDarkIcon.png"/>
                         </Button>
                         <TextBlock x:Name="streamsTextBlock" Text="Streams" VerticalAlignment="Center" Margin="20,0,0,0" Tapped="streamsTextBlock_Tapped"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Button x:Name="gamesButton" Width="48" Height="48" Click="gamesButton_Click">
-                            <SymbolIcon Symbol="World"/>
+                            <Image Source="Assets/gameIcon.png"/>
                         </Button>
                         <TextBlock x:Name="gamesTextBlock" Text="Games" VerticalAlignment="Center" Margin="20,0,0,0" Tapped="gamesTextBlock_Tapped"/>
                     </StackPanel>

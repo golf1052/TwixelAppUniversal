@@ -179,6 +179,7 @@
     <Content Include="Assets\Chat\turbo-icon.png" />
     <Content Include="Assets\clockDark.png" />
     <Content Include="Assets\defaultFollowerPicture.png" />
+    <Content Include="Assets\gameIcon.png" />
     <Content Include="Assets\kappa-emote.png" />
     <Content Include="Assets\liveViewersIcon.png" />
     <Content Include="Assets\viewersDarkIcon.png" />
