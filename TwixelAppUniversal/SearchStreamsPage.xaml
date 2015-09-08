@@ -1,0 +1,53 @@
+﻿<Page
+    x:Class="TwixelAppUniversal.SearchStreamsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TwixelAppUniversal"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Phone">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="streamsStackPanel.(RelativePanel.Below)" Value="searchText"/>
+                        <Setter Target="streamsStackPanel.(RelativePanel.RightOf)" Value=""/>
+                        <Setter Target="streamsStackPanel.(RelativePanel.AlignVerticalCenterWith)" Value=""/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="PC">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="streamsStackPanel.(RelativePanel.Below)" Value=""/>
+                        <Setter Target="streamsStackPanel.(RelativePanel.RightOf)" Value="searchText"/>
+                        <Setter Target="streamsStackPanel.(RelativePanel.AlignVerticalCenterWith)" Value="searchText"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <ProgressBar x:Name="progressBar" Height="10" VerticalAlignment="Top" IsIndeterminate="True"/>
+
+        <RelativePanel HorizontalAlignment="Left" VerticalAlignment="Top">
+            <TextBlock x:Name="searchText" HorizontalAlignment="Left" Text="" FontSize="26.667" TextTrimming="CharacterEllipsis" Margin="5,5,0,0" d:LayoutOverrides="Height, TopPosition, BottomPosition"/>
+            <StackPanel x:Name="streamsStackPanel" Orientation="Horizontal" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" RelativePanel.Below="searchText" Margin="5,0,0,0">
+                <SymbolIcon Symbol="Video" HorizontalAlignment="Center" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" VerticalAlignment="Center"/>
+                <TextBlock x:Name="numberOfStreamsTextBlock" TextWrapping="Wrap" Text="" FontSize="26.667" Margin="10,0,0,0"/>
+            </StackPanel>
+        </RelativePanel>
+        <ScrollViewer x:Name="scrollViewer" Margin="0" Grid.Row="1">
+            <GridView x:Name="streamsGridView" HorizontalAlignment="Center" VerticalAlignment="Center" SelectionMode="None" IsItemClickEnabled="True" ItemTemplate="{StaticResource GameStreamsTemplate}" Loaded="streamsGridView_Loaded" ItemClick="streamsGridView_ItemClick" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Padding="0"/>
+        </ScrollViewer>
+
+    </Grid>
+</Page>

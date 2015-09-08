@@ -1,23 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using TwixelAPI;
-using TwixelChat.Universal;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using TwixelChat;
-using TwixelChat.Events;
-using Windows.UI.Core;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -79,6 +69,50 @@ namespace TwixelAppUniversal
                 SetQualityComboBox(AppConstants.StreamQuality.Chunked, streamQualitiesComboBox);
             }
             streamElement.Play();
+
+            if (AppConstants.activeUser != null)
+            {
+                if (AppConstants.activeUser.authorized)
+                {
+                    int followingOffset = 0;
+                    List<Channel> followingChannels = new List<Channel>();
+                    Total<List<Follow<Channel>>> channels = null;
+                    do
+                    {
+                        channels = await AppConstants.activeUser.RetrieveFollowing(followingOffset, 100);
+                        foreach (Follow<Channel> channel in channels.wrapped)
+                        {
+                            followingChannels.Add(channel.wrapped);
+                        }
+                        followingOffset += 100;
+                    }
+                    while (channels.wrapped.Count != 0);
+                    if (AppConstants.activeUser.authorizedScopes.Contains(TwixelAPI.Constants.TwitchConstants.Scope.UserFollowsEdit))
+                    {
+                        foreach (Channel channel in followingChannels)
+                        {
+                            if (channel.name == stream.channel.name)
+                            {
+                                followButton.Label = "Unfollow";
+                                ((SymbolIcon)followButton.Icon).Symbol = Symbol.Clear;
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        followButton.IsEnabled = false;
+                    }
+                }
+                else
+                {
+                    followButton.IsEnabled = false;
+                }
+            }
+            else
+            {
+                followButton.IsEnabled = false;
+            }
             base.OnNavigatedTo(e);
             doneLoading = true;
         }
@@ -137,6 +171,27 @@ namespace TwixelAppUniversal
             else
             {
                 chatGrid.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void channelButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(ChannelPage), stream.channel);
+        }
+
+        private async void followButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (followButton.Label == "Follow")
+            {
+                await AppConstants.activeUser.FollowChannel(stream.channel.name);
+                followButton.Label = "Unfollow";
+                ((SymbolIcon)followButton.Icon).Symbol = Symbol.Clear;
+            }
+            else
+            {
+                await AppConstants.activeUser.UnfollowChannel(stream.channel.name);
+                followButton.Label = "Follow";
+                ((SymbolIcon)followButton.Icon).Symbol = Symbol.Add;
             }
         }
     }

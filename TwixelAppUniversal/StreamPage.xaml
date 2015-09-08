@@ -146,8 +146,8 @@
                     <TextBlock x:Name="streamViewersTextBlock" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="21.333"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right">
-                    <AppBarButton x:Name="channelButton" Icon="Contact" Label="Channel"/>
-                    <AppBarButton x:Name="followButton" HorizontalAlignment="Stretch" Icon="Add" Label="Follow" VerticalAlignment="Stretch" d:LayoutOverrides="Width"/>
+                    <AppBarButton x:Name="channelButton" Icon="Contact" Label="Channel" Click="channelButton_Click"/>
+                    <AppBarButton x:Name="followButton" HorizontalAlignment="Stretch" Icon="Add" Label="Follow" VerticalAlignment="Stretch" d:LayoutOverrides="Width" Click="followButton_Click"/>
                 </StackPanel>
             </Grid>
             <MediaElement x:Name="streamElement" Tapped="streamElement_Tapped" Grid.Row="1"/>

@@ -27,7 +27,7 @@
                         <Button x:Name="searchButton" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="48" Height="48" Click="searchButton_Click">
                             <SymbolIcon Symbol="Find" />
                         </Button>
-                        <AutoSuggestBox x:Name="searchBox" VerticalAlignment="Center" Width="280" Margin="10,8" HorizontalAlignment="Center">
+                        <AutoSuggestBox x:Name="searchBox" VerticalAlignment="Center" Width="280" Margin="10,8" HorizontalAlignment="Center" QuerySubmitted="searchBox_QuerySubmitted">
                             <AutoSuggestBox.QueryIcon>
                                 <SymbolIcon Symbol="Find" />
                             </AutoSuggestBox.QueryIcon>

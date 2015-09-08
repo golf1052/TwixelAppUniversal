@@ -133,13 +133,16 @@
     <Compile Include="LoadingPage.xaml.cs">
       <DependentUpon>LoadingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="OrientedSize.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScopesPage.xaml.cs">
       <DependentUpon>ScopesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SearchGamesPage.xaml.cs">
+      <DependentUpon>SearchGamesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SearchStreamsPage.xaml.cs">
+      <DependentUpon>SearchStreamsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Secrets.cs" />
     <Compile Include="SettingsPage.xaml.cs">
@@ -228,13 +231,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MainPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="ScopesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SearchGamesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SearchStreamsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>

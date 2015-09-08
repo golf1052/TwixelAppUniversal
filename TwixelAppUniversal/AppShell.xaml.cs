@@ -227,5 +227,17 @@ namespace TwixelAppUniversal
         {
             settingsButton_Click(sender, e);
         }
+
+        private void searchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            if (searchBox.PlaceholderText == "search for streams")
+            {
+                AppFrame.Navigate(typeof(SearchStreamsPage), args.QueryText);
+            }
+            else if (searchBox.PlaceholderText == "search for games")
+            {
+                AppFrame.Navigate(typeof(SearchGamesPage), args.QueryText);
+            }
+        }
     }
 }
