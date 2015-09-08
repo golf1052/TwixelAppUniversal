@@ -24,6 +24,7 @@ namespace TwixelAppUniversal
         bool showBars;
 
         ChatWindow chatWindow;
+        VolumeFlyout volumeFlyout;
 
         ObservableCollection<ChatListViewBinding> messages;
 
@@ -42,6 +43,7 @@ namespace TwixelAppUniversal
             stream = (Stream)parameters[0];
             qualities = (Dictionary<AppConstants.StreamQuality, Uri>)parameters[1];
 
+            volumeFlyout = new VolumeFlyout(volumeSlider, muteButton, volumeButton, streamElement);
             chatWindow = new ChatWindow(Dispatcher, stream.channel.name, chatListView, scrollViewer, chatBox, sendButton);
             await chatWindow.LoadChatWindow();
             streamerImage.Fill = new ImageBrush() { ImageSource = new BitmapImage(stream.channel.logo) };

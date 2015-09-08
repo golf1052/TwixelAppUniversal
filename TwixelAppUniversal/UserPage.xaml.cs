@@ -30,6 +30,7 @@ namespace TwixelAppUniversal
         Stream stream;
         Dictionary<AppConstants.StreamQuality, Uri> qualities;
 
+        VolumeFlyout volumeFlyout;
         ChatWindow chatWindow;
         ObservableCollection<ChatListViewBinding> messages;
 
@@ -85,6 +86,7 @@ namespace TwixelAppUniversal
                     await PlayStream();
                 }
 
+                volumeFlyout = new VolumeFlyout(volumeSlider, muteButton, volumeButton, streamPlayer);
                 chatWindow = new ChatWindow(Dispatcher, user.name, chatListView, chatScrollViewer, chatBox, sendButton);
                 await chatWindow.LoadChatWindow();
 

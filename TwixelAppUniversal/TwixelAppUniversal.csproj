@@ -160,6 +160,7 @@
     <Compile Include="VideosPage.xaml.cs">
       <DependentUpon>VideosPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VolumeFlyout.cs" />
     <Compile Include="WrapPanel.cs" />
   </ItemGroup>
   <ItemGroup>
