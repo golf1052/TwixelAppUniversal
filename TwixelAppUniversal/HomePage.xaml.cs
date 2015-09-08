@@ -81,7 +81,7 @@ namespace TwixelAppUniversal
                 nextButton.IsEnabled = true;
             }
 
-            Total<List<Game>> topGames = new Total<List<Game>>();
+            Total<List<Game>> topGames = null;
             try
             {
                 topGames = await AppConstants.Twixel.RetrieveTopGames(0, 10);
@@ -90,9 +90,12 @@ namespace TwixelAppUniversal
             {
                 await HelperMethods.ShowErrorDialog(ex);
             }
-            foreach (Game game in topGames.wrapped)
+            if (topGames != null)
             {
-                topGamesCollection.Add(new GameGridViewBinding(game));
+                foreach (Game game in topGames.wrapped)
+                {
+                    topGamesCollection.Add(new GameGridViewBinding(game));
+                }
             }
             base.OnNavigatedTo(e);
         }
