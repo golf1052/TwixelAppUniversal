@@ -78,89 +78,120 @@
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Phone">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="chatGrid.(Grid.Row)" Value="1"/>
+                        <Setter Target="chatGrid.(Grid.Column)" Value="0"/>
+                        <Setter Target="chatListView.Width" Value="Auto"/>
+                        <Setter Target="chatListView.Height" Value="250"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="PC">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="chatGrid.(Grid.Row)" Value="0"/>
+                        <Setter Target="chatGrid.(Grid.Column)" Value="1"/>
+                        <Setter Target="chatListView.Width" Value="300"/>
+                        <Setter Target="chatListView.Height" Value="Auto"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid x:Name="topBar" RenderTransformOrigin="0.5,0.5">
-            <Grid.RenderTransform>
-                <CompositeTransform/>
-            </Grid.RenderTransform>
-            <Grid.Transitions>
-                <TransitionCollection/>
-            </Grid.Transitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Ellipse x:Name="streamerImage" Width="100" Height="100" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,10,10">
-                <Ellipse.Fill>
-                    <ImageBrush/>
-                </Ellipse.Fill>
-            </Ellipse>
-            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                <TextBlock x:Name="streamDescriptionTextBlock" TextWrapping="Wrap" Text="stream description"/>
-                <TextBlock x:Name="streamerNameTextBlock" TextWrapping="Wrap" Text="streamer name"/>
-                <TextBlock x:Name="gameNameTextBlock" TextWrapping="Wrap" Text="game"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="10,0,0,0">
-                <SymbolIcon Symbol="Contact"/>
-                <TextBlock x:Name="streamViewersTextBlock" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="21.333"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right">
-                <AppBarButton x:Name="channelButton" Icon="Contact" Label="Channel"/>
-                <AppBarButton x:Name="followButton" HorizontalAlignment="Stretch" Icon="Add" Label="Follow" VerticalAlignment="Stretch" d:LayoutOverrides="Width"/>
-            </StackPanel>
-        </Grid>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <MediaElement x:Name="streamElement" Tapped="streamElement_Tapped"/>
-            <Grid x:Name="chatGrid" Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <ScrollViewer x:Name="scrollViewer" Grid.Column="1">
-                    <ListView x:Name="chatListView" Width="300" ItemTemplate="{StaticResource ChatListViewTemplate}" d:LayoutOverrides="LeftPosition, RightPosition"/>
-                </ScrollViewer>
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox x:Name="chatBox"/>
-                    <Button x:Name="sendButton" Grid.Column="1" Background="{StaticResource CornflowerBlue}">
-                        <SymbolIcon Symbol="Send"/>
-                    </Button>
-                </Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="streamGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid x:Name="topBar" RenderTransformOrigin="0.5,0.5" Margin="0" VerticalAlignment="Top">
+                <Grid.RenderTransform>
+                    <CompositeTransform/>
+                </Grid.RenderTransform>
+                <Grid.Transitions>
+                    <TransitionCollection/>
+                </Grid.Transitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Ellipse x:Name="streamerImage" Width="100" Height="100" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,10,10">
+                    <Ellipse.Fill>
+                        <ImageBrush/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <TextBlock x:Name="streamDescriptionTextBlock" TextWrapping="Wrap" Text="stream description"/>
+                    <TextBlock x:Name="streamerNameTextBlock" TextWrapping="Wrap" Text="streamer name"/>
+                    <TextBlock x:Name="gameNameTextBlock" TextWrapping="Wrap" Text="game"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="10,0,0,0">
+                    <SymbolIcon Symbol="Contact"/>
+                    <TextBlock x:Name="streamViewersTextBlock" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="21.333"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <AppBarButton x:Name="channelButton" Icon="Contact" Label="Channel"/>
+                    <AppBarButton x:Name="followButton" HorizontalAlignment="Stretch" Icon="Add" Label="Follow" VerticalAlignment="Stretch" d:LayoutOverrides="Width"/>
+                </StackPanel>
+            </Grid>
+            <MediaElement x:Name="streamElement" Tapped="streamElement_Tapped" Grid.Row="1"/>
+            <Grid x:Name="bottomBar" RenderTransformOrigin="0.5,0.5" Margin="0" Grid.Row="2">
+                <Grid.RenderTransform>
+                    <CompositeTransform/>
+                </Grid.RenderTransform>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <AppBarButton x:Name="playPauseButton" HorizontalAlignment="Stretch" Icon="Stop" Label="Pause" VerticalAlignment="Stretch" d:LayoutOverrides="Width"/>
+                    <ComboBox x:Name="streamQualitiesComboBox" VerticalAlignment="Center" Width="120" SelectionChanged="streamQualitiesComboBox_SelectionChanged"/>
+                    <AppBarButton x:Name="volumeButton" HorizontalAlignment="Stretch" Icon="Volume" Label="Volume" VerticalAlignment="Stretch" d:LayoutOverrides="Width">
+                        <AppBarButton.Flyout>
+                            <Flyout>
+                                <StackPanel>
+                                    <Button x:Name="muteButton" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Margin="0,0,0,10">
+                                        <SymbolIcon Symbol="Volume"/>
+                                    </Button>
+                                    <Slider x:Name="volumeSlider" Orientation="Vertical" LargeChange="5" Value="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Flyout>
+                        </AppBarButton.Flyout>
+                    </AppBarButton>
+                    <AppBarButton x:Name="chatButton" Icon="Message" Label="Chat" Click="chatButton_Click"/>
+                </StackPanel>
             </Grid>
         </Grid>
-        <Grid x:Name="bottomBar" Grid.Row="2" RenderTransformOrigin="0.5,0.5">
-            <Grid.RenderTransform>
-                <CompositeTransform/>
-            </Grid.RenderTransform>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <AppBarButton x:Name="playPauseButton" HorizontalAlignment="Stretch" Icon="Stop" Label="Pause" VerticalAlignment="Stretch" d:LayoutOverrides="Width"/>
-                <ComboBox x:Name="streamQualitiesComboBox" VerticalAlignment="Center" Width="120" SelectionChanged="streamQualitiesComboBox_SelectionChanged"/>
-                <AppBarButton x:Name="volumeButton" HorizontalAlignment="Stretch" Icon="Volume" Label="Volume" VerticalAlignment="Stretch" d:LayoutOverrides="Width">
-                    <AppBarButton.Flyout>
-                        <Flyout>
-                            <StackPanel>
-                                <Button x:Name="muteButton" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Margin="0,0,0,10">
-                                    <SymbolIcon Symbol="Volume"/>
-                                </Button>
-                                <Slider x:Name="volumeSlider" Orientation="Vertical" LargeChange="5" Value="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Flyout>
-                    </AppBarButton.Flyout>
-                </AppBarButton>
-                <AppBarButton x:Name="chatButton" Icon="Message" Label="Chat"/>
-            </StackPanel>
+        <Grid x:Name="chatGrid" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <ScrollViewer x:Name="scrollViewer" Grid.Column="1">
+                <ListView x:Name="chatListView" Width="300" ItemTemplate="{StaticResource ChatListViewTemplate}" d:LayoutOverrides="LeftPosition, RightPosition"/>
+            </ScrollViewer>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="chatBox"/>
+                <Button x:Name="sendButton" Grid.Column="1" Background="{StaticResource CornflowerBlue}">
+                    <SymbolIcon Symbol="Send"/>
+                </Button>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

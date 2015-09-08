@@ -30,6 +30,9 @@ namespace TwixelAppUniversal
         Stream stream;
         Dictionary<AppConstants.StreamQuality, Uri> qualities;
 
+        ChatWindow chatWindow;
+        ObservableCollection<ChatListViewBinding> messages;
+
         ItemLoader followedOnlineStreamsLoader;
         ItemLoader followingChannelsLoader;
         ItemLoader blockedUsersLoader;
@@ -46,6 +49,9 @@ namespace TwixelAppUniversal
             this.InitializeComponent();
             channel = null;
             qualities = null;
+
+            messages = new ObservableCollection<ChatListViewBinding>();
+            chatListView.ItemsSource = messages;
 
             followedOnlineStreamsLoader = new ItemLoader(LoadOnlineStreams, followedStreamsScrollViewer, followedStreamsProgressBar);
             followingChannelsLoader = new ItemLoader(LoadFollowingChannels, followedChannelsScrollViewer, followedChannelsProgressBar);
@@ -78,6 +84,9 @@ namespace TwixelAppUniversal
                     }
                     await PlayStream();
                 }
+
+                chatWindow = new ChatWindow(Dispatcher, user.name, chatListView, chatScrollViewer, chatBox, sendButton);
+                await chatWindow.LoadChatWindow();
 
                 streamKeyTextBox.Text = user.streamKey;
                 await LoadOnlineStreams();
@@ -143,7 +152,7 @@ namespace TwixelAppUniversal
         {
             try
             {
-                qualities = await HelperMethods.RetrieveHlsStream("riotgames");
+                qualities = await HelperMethods.RetrieveHlsStream(user.name);
             }
             catch (Exception ex)
             {

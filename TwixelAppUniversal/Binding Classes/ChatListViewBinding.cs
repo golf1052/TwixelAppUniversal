@@ -56,6 +56,8 @@ namespace TwixelAppUniversal
                     if (e != null)
                     {
                         AddImage(e);
+                        var position = FindTuple(emote.Value.Positions, emote.Key);
+                        currentPosition = (int)position.Item2 + 1;
                     }
                     else
                     {

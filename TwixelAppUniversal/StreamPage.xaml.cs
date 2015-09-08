@@ -127,5 +127,17 @@ namespace TwixelAppUniversal
                 }
             }
         }
+
+        private void chatButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (chatGrid.Visibility == Visibility.Collapsed)
+            {
+                chatGrid.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                chatGrid.Visibility = Visibility.Collapsed;
+            }
+        }
     }
 }

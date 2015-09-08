@@ -85,7 +85,7 @@ namespace TwixelAppUniversal
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 chatMessages.Add(new ChatListViewBinding(e.ChatMessage, chatClient.Channel.ChannelName));
-                scrollViewer.ChangeView(null, scrollViewer.ScrollableHeight, null);
+                //scrollViewer.ChangeView(null, scrollViewer.ScrollableHeight, null);
             });
         }
 
@@ -136,7 +136,7 @@ namespace TwixelAppUniversal
                 chatTextBox.Text = string.Empty;
                 await chatClient.SendMessage(tmp);
                 chatMessages.Add(new ChatListViewBinding(chatClient.Channel.ChannelUserState, channelName, AppConstants.activeUser.name, tmp));
-                scrollViewer.ChangeView(null, scrollViewer.ScrollableHeight, null);
+                //scrollViewer.ChangeView(null, scrollViewer.ScrollableHeight, null);
             }
         }
 
