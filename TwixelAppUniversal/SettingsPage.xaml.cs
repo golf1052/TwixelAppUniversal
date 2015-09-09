@@ -33,6 +33,7 @@ namespace TwixelAppUniversal
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             wifiStreamQualityComboBox.SelectedIndex = (int)AppConstants.WifiStreamQuality;
+            cellularQualityComboBox.SelectedIndex = (int)AppConstants.CellStreamQuality;
             base.OnNavigatedTo(e);
             doneLoading = true;
         }
@@ -50,6 +51,16 @@ namespace TwixelAppUniversal
         private void accountButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(AccountPage));
+        }
+
+        private void cellularQualityComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (doneLoading)
+            {
+                ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
+                AppConstants.CellStreamQuality = (AppConstants.StreamQuality)cellularQualityComboBox.SelectedIndex;
+                roamingSettings.Values["cellStreamQuality"] = HelperMethods.GetStreamQualityString(AppConstants.CellStreamQuality);
+            }
         }
     }
 }

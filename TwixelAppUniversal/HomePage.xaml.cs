@@ -54,7 +54,6 @@ namespace TwixelAppUniversal
             {
                 await HelperMethods.ShowErrorDialog(ex);
             }
-            progressRing.IsActive = false;
             foreach (FeaturedStream stream in streams)
             {
                 stream.CleanTextString();
@@ -102,6 +101,7 @@ namespace TwixelAppUniversal
                     topGamesCollection.Add(new GameGridViewBinding(game));
                 }
             }
+            progressRing.IsActive = false;
             base.OnNavigatedTo(e);
         }
 

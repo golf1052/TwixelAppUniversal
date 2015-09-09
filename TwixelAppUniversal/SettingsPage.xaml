@@ -8,8 +8,8 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
-            <TextBlock x:Name="wifiStreamQualityLabel" TextWrapping="Wrap" Text="Default Stream Quality" Margin="0" d:LayoutOverrides="Width, TopPosition, BottomPosition"/>
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0">
+            <TextBlock x:Name="wifiStreamQualityLabel" TextWrapping="Wrap" Text="Default Wifi/Ethernet Stream Quality" Margin="0,0,0,5" d:LayoutOverrides="Width, TopPosition, BottomPosition"/>
             <ComboBox x:Name="wifiStreamQualityComboBox" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch" d:LayoutOverrides="LeftPosition, RightPosition" SelectionChanged="wifiStreamQualityComboBox_SelectionChanged">
                 <ComboBoxItem Content="Source"/>
                 <ComboBoxItem Content="High"/>
@@ -17,7 +17,15 @@
                 <ComboBoxItem Content="Low"/>
                 <ComboBoxItem Content="Mobile"/>
             </ComboBox>
-            <Button x:Name="accountButton" Content="Manage Accounts" Click="accountButton_Click"/>
+            <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="Default Cellular Stream Quality" Margin="0,10,0,0"/>
+            <ComboBox x:Name="cellularQualityComboBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="cellularQualityComboBox_SelectionChanged">
+                <ComboBoxItem Content="Source"/>
+                <ComboBoxItem Content="High"/>
+                <ComboBoxItem Content="Medium"/>
+                <ComboBoxItem Content="Low"/>
+                <ComboBoxItem Content="Mobile"/>
+            </ComboBox>
+            <Button x:Name="accountButton" Content="Manage Accounts" Click="accountButton_Click" Margin="0,10"/>
         </StackPanel>
     </Grid>
 </Page>
