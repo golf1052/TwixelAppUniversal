@@ -45,7 +45,7 @@ namespace TwixelAppUniversal
             HelperMethods.HideSplitView();
             if (Frame.BackStack.Count > 0)
             {
-                if (Frame.BackStack[0].SourcePageType == typeof(FinalConfirmation))
+                if (Frame.BackStack[Frame.BackStack.Count - 1].SourcePageType == typeof(FinalConfirmation))
                 {
                     HelperMethods.DisableBackButton();
                 }

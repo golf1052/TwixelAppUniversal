@@ -1,19 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using TwixelAPI;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -75,6 +67,7 @@ namespace TwixelAppUniversal
                 }
                 catch (TwixelException ex)
                 {
+                    await HelperMethods.ShowErrorDialog(ex);
                 }
                 if (channel != null)
                 {
@@ -102,7 +95,16 @@ namespace TwixelAppUniversal
         async Task LoadOnlineStreams()
         {
             followedOnlineStreamsLoader.StartLoading();
-            List<Stream> onlineStreams = await user.RetrieveOnlineFollowedStreams(followedOnlineStreamsLoader.Offset, 100);
+            List<Stream> onlineStreams = new List<Stream>();
+            try
+            {
+                onlineStreams = await user.RetrieveOnlineFollowedStreams(followedOnlineStreamsLoader.Offset, 100);
+            }
+            catch (TwixelException ex)
+            {
+                await HelperMethods.ShowErrorDialog(ex);
+            }
+
             if (!followedOnlineStreamsLoader.CheckForEnd(onlineStreams))
             {
                 foreach (Stream onlineStream in onlineStreams)
@@ -116,21 +118,45 @@ namespace TwixelAppUniversal
         async Task LoadFollowingChannels()
         {
             followingChannelsLoader.StartLoading();
-            Total<List<Follow<Channel>>> followingChannels = await user.RetrieveFollowing(followingChannelsLoader.Offset, 100);
-            if (!followingChannelsLoader.CheckForEnd(followingChannels.wrapped))
+            Total<List<Follow<Channel>>> followingChannels = null;
+            try
             {
-                foreach (Follow<Channel> follow in followingChannels.wrapped)
+                followingChannels = await user.RetrieveFollowing(followingChannelsLoader.Offset, 100);
+            }
+            catch (TwixelException ex)
+            {
+                await HelperMethods.ShowErrorDialog(ex);
+            }
+            if (followingChannels != null)
+            {
+                if (!followingChannelsLoader.CheckForEnd(followingChannels.wrapped))
                 {
-                    followingChannelsCollection.Add(new ChannelProfileListViewBinding(follow.wrapped.logo, follow.wrapped.displayName, follow.wrapped));
+                    foreach (Follow<Channel> follow in followingChannels.wrapped)
+                    {
+                        followingChannelsCollection.Add(new ChannelProfileListViewBinding(follow.wrapped.logo, follow.wrapped.displayName, follow.wrapped));
+                    }
+                    followingChannelsLoader.EndLoading(100);
                 }
-                followingChannelsLoader.EndLoading(100);
+            }
+            else
+            {
+                followingChannelsLoader.ForceEnd();
             }
         }
 
         async Task LoadBlockedUsers()
         {
             blockedUsersLoader.StartLoading();
-            List<Block> blockedUsers = await user.RetrieveBlockedUsers(blockedUsersLoader.Offset, 100);
+            List<Block> blockedUsers = new List<Block>();
+            try
+            {
+                blockedUsers = await user.RetrieveBlockedUsers(blockedUsersLoader.Offset, 100);
+            }
+            catch (TwixelException ex)
+            {
+                await HelperMethods.ShowErrorDialog(ex);
+            }
+
             if (!blockedUsersLoader.CheckForEnd(blockedUsers))
             {
                 foreach (Block block in blockedUsers)
@@ -162,7 +188,7 @@ namespace TwixelAppUniversal
                 streamOfflineTextBlock.Visibility = Visibility.Visible;
                 ((SymbolIcon)playPauseButton.Icon).Symbol = Symbol.Play;
                 playPauseButton.IsEnabled = false;
-                await HelperMethods.ShowMessageDialog("Looks like you're not streaming currently.", "Stream offline");
+                //await HelperMethods.ShowMessageDialog("Looks like you're not streaming currently.", "Stream offline");
             }
             if (qualities != null)
             {

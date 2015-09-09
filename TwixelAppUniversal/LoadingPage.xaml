@@ -10,7 +10,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0">
             <TextBlock x:Name="loadingText" HorizontalAlignment="Center" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource CornflowerBlue}" Margin="0" d:LayoutOverrides="TopPosition, BottomPosition" FontSize="24" TextTrimming="CharacterEllipsis"/>
-            <ProgressRing x:Name="progressRing" HorizontalAlignment="Center" VerticalAlignment="Stretch" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" IsActive="True" Foreground="{StaticResource CornflowerBlue}" Width="50" Height="50"/>
+            <ProgressRing x:Name="progressRing" HorizontalAlignment="Center" VerticalAlignment="Stretch" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" IsActive="True" Foreground="{StaticResource CornflowerBlue}" Width="50" Height="50" Margin="0,10,0,0"/>
         </StackPanel>
     </Grid>
 </Page>

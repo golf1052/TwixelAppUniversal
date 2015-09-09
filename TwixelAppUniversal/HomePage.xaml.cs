@@ -44,6 +44,8 @@ namespace TwixelAppUniversal
                 }
             }
 
+            progressRing.IsActive = true;
+
             try
             {
                 streams = await AppConstants.Twixel.RetrieveFeaturedStreams(0, 10);
@@ -52,6 +54,7 @@ namespace TwixelAppUniversal
             {
                 await HelperMethods.ShowErrorDialog(ex);
             }
+            progressRing.IsActive = false;
             foreach (FeaturedStream stream in streams)
             {
                 stream.CleanTextString();
@@ -74,9 +77,11 @@ namespace TwixelAppUniversal
                     qualities.Add(q);
                 }
             }
+
             if (streams.Count > 0)
             {
                 SetUpFeaturedStream();
+                streamButton.IsEnabled = true;
                 playButton.IsEnabled = true;
                 nextButton.IsEnabled = true;
             }

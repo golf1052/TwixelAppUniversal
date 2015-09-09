@@ -46,7 +46,7 @@
         </VisualStateManager.VisualStateGroups>
         <ProgressBar x:Name="progressBar" Height="10" VerticalAlignment="Top" IsIndeterminate="True"/>
 
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Margin="10,10,0,0">
             <Ellipse x:Name="channelImage" Width="100" Height="100">
                 <Ellipse.Fill>
                     <ImageBrush/>
