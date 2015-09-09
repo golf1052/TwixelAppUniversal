@@ -17,7 +17,10 @@
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>TwixelAppUniversal_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>TwixelAppUniversal_StoreKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>79B1D3D8BABF8BFED24F95C51EE470C2C48B4B53</PackageCertificateThumbprint>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -167,6 +170,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <None Include="TwixelAppUniversal_StoreKey.pfx" />
     <None Include="TwixelAppUniversal_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +197,7 @@
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Custom Packages\Flurl.dll" />
     <Content Include="Custom Packages\Flurl.XML" />
+    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
