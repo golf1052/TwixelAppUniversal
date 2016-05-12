@@ -1,3 +1,5 @@
+// This goes under TwixelAppUniversal/Secrets.cs
+
 namespace TwixelAppUniversal
 {
     public static class Secrets
