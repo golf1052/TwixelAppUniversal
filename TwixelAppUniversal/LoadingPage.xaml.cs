@@ -117,16 +117,22 @@ namespace TwixelAppUniversal
                         else
                         {
                             // need to choose a new active user
+                            roamingSettings.Values["activeUser"] = string.Empty;
+                            Frame.Navigate(typeof(HomePage));
                         }
                     }
                     else
                     {
                         // need to choose a new active user
+                        roamingSettings.Values["activeUser"] = string.Empty;
+                        Frame.Navigate(typeof(HomePage));
                     }
                 }
                 else
                 {
                     // need to choose a new active user
+                    roamingSettings.Values["activeUser"] = string.Empty;
+                    Frame.Navigate(typeof(HomePage));
                 }
             }
         }

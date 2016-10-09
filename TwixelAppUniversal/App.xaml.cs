@@ -69,6 +69,13 @@ namespace TwixelAppUniversal
                     //TODO: Load state from previously suspended application
                 }
 
+                if (e.PrelaunchActivated)
+                {
+                    // Don't handle prelaunch, just exit.
+                    Windows.ApplicationModel.Core.CoreApplication.Exit();
+                    return;
+                }
+
                 // Place the frame in the current Window
                 Window.Current.Content = shell;
             }

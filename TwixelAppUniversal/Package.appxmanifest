@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="24796GStudios.Twixel" Publisher="CN=0BE05EAB-E1F1-4BF9-98E4-3A633884B5A7" Version="2.0.0.0" />
+  <Identity Name="24796GStudios.Twixel" Publisher="CN=0BE05EAB-E1F1-4BF9-98E4-3A633884B5A7" Version="2.0.2.0" />
   <mp:PhoneIdentity PhoneProductId="8861b723-4edc-424d-ba4a-95c8db6e1840" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Twixel</DisplayName>

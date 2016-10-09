@@ -174,7 +174,14 @@ namespace TwixelAppUniversal
 
                 if (user.Subscriber)
                 {
-                    Subscriber = "https:" + EmoteManager.ChannelsByName[channel].Badge;
+                    if (EmoteManager.ChannelsByName.ContainsKey(channel))
+                    {
+                        Subscriber = "https:" + EmoteManager.ChannelsByName[channel].Badge;
+                    }
+                    else
+                    {
+                        Subscriber = null;
+                    }
                 }
                 else
                 {

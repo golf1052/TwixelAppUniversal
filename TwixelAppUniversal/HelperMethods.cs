@@ -18,6 +18,7 @@ namespace TwixelAppUniversal
         public static async Task<string> GetWebData(Uri uri)
         {
             HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Add("Client-ID", Secrets.ClientId);
             HttpResponseMessage response = await client.GetAsync(uri);
             if (response.StatusCode == HttpStatusCode.OK)
             {

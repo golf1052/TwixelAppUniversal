@@ -128,6 +128,11 @@ namespace TwixelAppUniversal
             await chatClient.JoinChannel(channelName);
         }
 
+        public async Task UnloadChatWindow()
+        {
+            await chatClient.LeaveChannel();
+        }
+
         private async Task SendChatMessage()
         {
             if (canChat && chatTextBox.Text != string.Empty)

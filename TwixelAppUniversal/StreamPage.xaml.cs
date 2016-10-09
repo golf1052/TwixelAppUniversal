@@ -124,6 +124,12 @@ namespace TwixelAppUniversal
             doneLoading = true;
         }
 
+        protected override async void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            await chatWindow.UnloadChatWindow();
+            base.OnNavigatedFrom(e);
+        }
+
         private async void streamElement_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (showBars)
